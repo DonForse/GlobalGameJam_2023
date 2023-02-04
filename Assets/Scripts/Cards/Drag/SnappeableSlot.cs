@@ -29,5 +29,10 @@ namespace Cards.Drag
             frameRenderer.sprite = cardsRepository.CardFrame;
             name.text = card.Name;
         }
+
+        public void OnOvering()
+        {
+            Debug.Log("On being overed");
+        }
     }
 }
