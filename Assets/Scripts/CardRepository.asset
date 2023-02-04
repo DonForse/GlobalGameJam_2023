@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: CardRepository
   m_EditorClassIdentifier: 
   FamilyMemberCards:
-  - Name: 
-  SabotageCards: []
-  ShieldCards: []
-  ObjectiveCards: []
+  - Name: Tu vieja
+  SabotageCards:
+  - Name: Tu viejo
+  ShieldCards:
+  - Name: Mi vieja
+  PrincipalOjectiveCards:
+  - Name: Alguna vieja
+  DeckObjectiveCard:
+  - Name: La vieja del otro

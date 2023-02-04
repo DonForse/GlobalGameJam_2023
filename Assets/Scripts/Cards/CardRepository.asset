@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a950bae7dbfa4e4199e3b9438e4dbc68, type: 3}
   m_Name: CardRepository
   m_EditorClassIdentifier: 
-  FamilyMemberCards: []
+  FamilyMemberCards:
+  - Name: 
   SabotageCards: []
   ShieldCards: []
   PrincipalOjectiveCards: []
