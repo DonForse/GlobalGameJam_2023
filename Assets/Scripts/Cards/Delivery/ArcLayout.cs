@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Features.Common.Utilities
         //[SerializeField] private float arc;
         //[SerializeField] private bool automaticAngle;
         [SerializeField] private float spreadWidth;
+        [SerializeField] private float spreadHeight;
 
         protected ArcLayout()
         { }
@@ -42,11 +44,67 @@ namespace Features.Common.Utilities
 
         public override void SetLayoutVertical()
         {
-            var halfChilds = (rectChildren.Count - 1) / 2f;
-            for (int i = 0; i < rectChildren.Count; i++)
+            var pairChilds = rectChildren.Count % 2 == 0;
+            var height = 0f;
+            if (pairChilds)
             {
-                float height = -3 * Mathf.Pow((halfChilds - i) / rectChildren.Count, 2); //height calculation formula. Try to find something that makes more sense...
-                rectChildren[i].position = new Vector3(rectChildren[i].position.x, this.transform.position.y + pivot.y + height, rectChildren[i].position.z);
+                CalculatePairChildHeight();
+                return;
+            }
+            CalculateUnevenChildHeight();
+        }
+
+        private void CalculateUnevenChildHeight()
+        {
+            float height;
+            var halfChild = (rectChildren.Count - 1) / 2;
+            for (var i = 0; i < halfChild; i++)
+            {
+                height = 0 + spreadHeight * (i / (float)halfChild);
+
+                rectChildren[i].position =
+                    new Vector3(rectChildren[i].position.x,
+                        this.transform.position.y + height,
+                        rectChildren[i].position.z);
+            }
+
+            height = spreadHeight;
+            rectChildren[halfChild].position =
+                new Vector3(rectChildren[halfChild].position.x,
+                    this.transform.position.y + height,
+                    rectChildren[halfChild].position.z);
+
+            for (var i = halfChild + 1; i < rectChildren.Count; i++)
+            {
+                height = spreadHeight - ((i - halfChild) / (float)halfChild) * spreadHeight;
+                rectChildren[i].position =
+                    new Vector3(rectChildren[i].position.x,
+                        this.transform.position.y + height,
+                        rectChildren[i].position.z);
+            }
+        }
+
+        private void CalculatePairChildHeight()
+        {
+            float height;
+            var halfChild = (rectChildren.Count / 2);
+            for (var i = 0; i < halfChild; i++)
+            {
+                height = 0 + spreadHeight * ((i+1) / (float)halfChild);
+                
+                rectChildren[i].position =
+                    new Vector3(rectChildren[i].position.x,
+                        this.transform.position.y + height,
+                        rectChildren[i].position.z);
+            }
+
+            for (var i =halfChild; i < rectChildren.Count; i++)
+            {
+                height = spreadHeight - ((i-halfChild) / (float)halfChild) * spreadHeight;
+                rectChildren[i].position =
+                    new Vector3(rectChildren[i].position.x,
+                        this.transform.position.y + height,
+                        rectChildren[i].position.z);
             }
         }
     }
