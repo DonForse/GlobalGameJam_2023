@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Actions;
-using UnityEngine;
 
 public class PlayCard
 {
@@ -28,7 +27,9 @@ public class PlayCard
 
         RemoveCardFromHand(selectedCard, hand);
         _handView.RemoveCard(selectedCard);
-        foreach (var strategy in _playCardStrategies.Where(strategy => strategy.Is(selectedCard)))
+        foreach (var strategy in _playCardStrategies
+                     .Where(strategy => strategy.Is(selectedCard) 
+                        && strategy.CanPlay(selectedCard, player)))
             strategy.Execute(selectedCard, player, rowSelected);
     }
 
@@ -36,26 +37,5 @@ public class PlayCard
     {
         var domainCard = hand.Cards.First(x => x.Name == selectedCard.Name);
         hand.Cards.Remove(domainCard);
-    }
-}
-
-public class SabotageStrategy : IPlayCardStrategy
-{
-    private readonly GameBoard _gameBoard;
-    private readonly DiscardCard _discardCard;
-
-    public SabotageStrategy(GameBoard gameBoard, DiscardCard discardCard)
-    {
-        _gameBoard = gameBoard;
-        _discardCard = discardCard;
-    }
-
-    public bool Is(Card card) => card.GetType() == typeof(SabotageCard);
-
-    public void Execute(Card card, Player player, GenerationRow row)
-    {
-        _gameBoard.RemoveAllCardsFromOpponent(player, row);
-        _discardCard.Execute(card);
-        Debug.Log("Sabotage completed");
     }
 }

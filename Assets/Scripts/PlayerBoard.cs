@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cards;
 using UnityEngine;
 
 public class PlayerBoard
@@ -54,5 +55,11 @@ public class PlayerBoard
             default:
                 throw new ArgumentOutOfRangeException(nameof(generation), generation, null);
         }
+    }
+
+    public bool HasObjectiveCondition(DeckObjectiveCard card)
+    {
+        return (ChildRow.Count >= card.Childs && ParentRow.Count >= card.Parents &&
+                GrandParentRow.Count > card.GrandParents);
     }
 }

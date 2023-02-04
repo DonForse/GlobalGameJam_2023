@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cards;
 
 public class GameBoard
 {
@@ -28,4 +29,10 @@ public class GameBoard
 
     private IEnumerable<PlayerBoard> FindGameBoardFromOpponentPlayer(Player player) => 
         playerBoards.Where(playerBoard => playerBoard.Player != player);
+
+    public bool HasCardObjective(Player player, DeckObjectiveCard card)
+    {
+       var playerBoard = FindPlayerBoardByPlayer(player);
+       return playerBoard.First().HasObjectiveCondition(card);
+    }
 }
