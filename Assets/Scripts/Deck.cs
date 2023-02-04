@@ -8,5 +8,5 @@ public class Deck{
         _cardRepository = cardRepository;
     }
 
-    public List<Card> Cards;
+    public Stack<Card> Cards;
 }
