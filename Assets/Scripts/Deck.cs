@@ -21,11 +21,17 @@ public class Deck{
 
     private void AddCards(Card card) => AddACard(card);
 
-    public void AddACard(Card card) => Cards.Push(card);
-
-    public void AddCards(Card[] cards) => AddCardOfType(cards);
-    public Card GetNextCard() => Cards.Pop();
-
+    public void AddACard(Card card)
+    {
+        for (int i = 0; i < card.DeckInitialAmount; i++)
+            Cards.Push(new Card
+            {
+                Drawing = card.Drawing,
+                Name = card.Name,
+                DeckInitialAmount = card.DeckInitialAmount
+            });
+    }
+    
     private void AddCardOfType(IEnumerable<Card> cards)
     {
         foreach (var card in cards) AddCards(card);
