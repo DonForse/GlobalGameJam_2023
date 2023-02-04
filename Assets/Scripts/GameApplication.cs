@@ -1,4 +1,5 @@
 using Actions;
+using Cards.Drag;
 using UnityEngine;
 
 public class GameApplication : MonoBehaviour
@@ -48,11 +49,13 @@ public class GameApplication : MonoBehaviour
 
     private void CardStartDrag(OverlayCardView selectedCard)
     {
-        Debug.Log($"{selectedCard.name}");
+        Debug.Log($"Start card drag: {selectedCard.name}");
+        var card = cardsRepo.GetFromId(selectedCard.name);
+        DraggingService.StartDragging(card, () => CardEndDrag(selectedCard));
     }
     private void CardEndDrag(OverlayCardView selectedCard)
     {
-        Debug.Log($"{selectedCard.name}"); 
+        Debug.Log($"End card drag{selectedCard.name}"); 
         var card = cardsRepo.GetFromId(selectedCard.name);
         //Blas Aca nos da la posicion.
         _playCard.Execute(card,_player, _playerHand,GenerationRow.Parent);
