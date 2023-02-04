@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Cards.Drag
@@ -32,49 +33,30 @@ namespace Cards.Drag
             while (DraggingService.IsDragging)
             {
                 yield return null;
-                // Ray ray = camera.ScreenPointToRay(Input.mousePosition);
                 ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast((Ray) ray, out var hitInfo))
-                {
-                    var slot = hitInfo.collider.gameObject.GetComponent<SnappeableSlot>();
-                    if (slot == null) continue;
-                    
-                    
-                    slot.OnOvering();
+                var hits = Physics.RaycastAll((Ray) ray);
 
-                    if (Input.GetMouseButtonUp(0))
-                    {
-                        slot.SnapCard(cardData);
-                        stopDragging();
-                    }
-                }
-                // if (Input.GetMouseButtonDown(0))
-                // {
-                //     Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-                //     RaycastHit hitInfo;
-                //     if (Physics.Raycast(ray, out hitInfo))
-                //     {
-                //         // Do something with the hitInfo
-                //     }
-                // }
+                var slot = hits.Select(it => it.collider.GetComponent<SnappeableSlot>())
+                    .FirstOrDefault(it => it != null);
+                if (slot == null) continue;
                 
-                // Vector3 cameraPos = cameraTransform.position;
-                // Vector3 rayDirection = cameraTransform.forward;
-                //
-                // Ray ray = new Ray(cameraPos, rayDirection);
-                // RaycastHit hit;
-                //
-                // if (Physics.Raycast(ray, out hit))
-                // {
-                //     var slot = hit.collider.gameObject.GetComponent<SnappeableSlot>();
-                //     if (slot == null) continue;
-                //
-                //     slot.SnapCard(cardData);
-                //     stopDragging();
-                // }
+                
+                OnOveringSlot(cardData, stopDragging, slot);
+
             }
 
             ray = null;
+        }
+
+        private static void OnOveringSlot(Card cardData, Action stopDragging, SnappeableSlot slot)
+        {
+            slot.OnOvering();
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                slot.SnapCard(cardData);
+                stopDragging();
+            }
         }
     }
 }
