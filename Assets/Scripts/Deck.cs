@@ -18,9 +18,16 @@ public class Deck{
         AddCardOfType(_cardRepository.SabotageCards);
         AddCardOfType(_cardRepository.ShieldCards);
     }
+
+    private void AddCards(Card card) => AddACard(card);
+
+    public void AddACard(Card card) => Cards.Push(card);
+
+    public void AddCards(Card[] cards) => AddCardOfType(cards);
+    public Card GetNextCard() => Cards.Pop();
+
     private void AddCardOfType(IEnumerable<Card> cards)
     {
         foreach (var card in cards) AddCards(card);
     }
-    private void AddCards(Card card) => Cards.Push(card);
 }
