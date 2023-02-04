@@ -6,32 +6,30 @@ using UnityEngine;
 public class PlayCard
 {
     private HandView _handView;
-    private GameBoard _gameBoard;
     private readonly List<IPlayCardStrategy> _playCardStrategies;
 
-    public PlayCard(GameBoard gameBoard, HandView handView)
+    public PlayCard(GameBoard gameBoard, HandView handView, DiscardCard discardCard)
     {
-        _gameBoard = gameBoard;
         _handView = handView;
         _playCardStrategies = new List<IPlayCardStrategy>
         {
-            new FamilyMemberStrategy(_gameBoard),
-            new SabotageStrategy()
+            new FamilyMemberStrategy(gameBoard),
+            new SabotageStrategy(gameBoard, discardCard)
         };
     }
 
-    public void Execute(Card selectedCard,Player player, PlayerHand hand, GenerationRow rowSelected)
+    public void Execute(Card selectedCard, 
+        Player player,
+        PlayerHand hand,
+        GenerationRow rowSelected)
     {
         if (rowSelected == GenerationRow.None)
             return;
 
         RemoveCardFromHand(selectedCard, hand);
         _handView.RemoveCard(selectedCard);
-        foreach (var strategy in _playCardStrategies)
-        {
-            if (!strategy.Is(selectedCard)) continue;
-            strategy.Execute(selectedCard, player, rowSelected );
-        }
+        foreach (var strategy in _playCardStrategies.Where(strategy => strategy.Is(selectedCard)))
+            strategy.Execute(selectedCard, player, rowSelected);
     }
 
     private static void RemoveCardFromHand(Card selectedCard, PlayerHand hand)
@@ -43,10 +41,21 @@ public class PlayCard
 
 public class SabotageStrategy : IPlayCardStrategy
 {
+    private readonly GameBoard _gameBoard;
+    private readonly DiscardCard _discardCard;
+
+    public SabotageStrategy(GameBoard gameBoard, DiscardCard discardCard)
+    {
+        _gameBoard = gameBoard;
+        _discardCard = discardCard;
+    }
+
     public bool Is(Card card) => card.GetType() == typeof(SabotageCard);
 
     public void Execute(Card card, Player player, GenerationRow row)
     {
-        Debug.Log("card");
+        _gameBoard.RemoveAllCardsFromOpponent(player, row);
+        _discardCard.Execute(card);
+        Debug.Log("Sabotage completed");
     }
 }

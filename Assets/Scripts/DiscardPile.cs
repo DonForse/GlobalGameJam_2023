@@ -2,5 +2,5 @@
 
 public class DiscardPile
 {
-    public List<Card> Cards;
+    public List<Card> Cards = new List<Card>();
 }

@@ -15,6 +15,7 @@ public class GameApplication : MonoBehaviour
     private PlayCard _playCard;
     private Player _player;
     private Player _npc;
+    private DiscardCard _discardCard;
 
     void Start()
     {
@@ -28,13 +29,14 @@ public class GameApplication : MonoBehaviour
 
         _gameBoard = new GameBoard();
         _gameBoard.Initialize(_player, _npc);
-        
-        _discardPile = new DiscardPile();
+
         _playerHand = new PlayerHand();
         _shuffleDeck = new ShuffleDeck(_deck);
+        _discardPile = new DiscardPile();
+        _discardCard = new DiscardCard(_discardPile);
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
-        _playCard = new PlayCard(_gameBoard, _handView);
+        _playCard = new PlayCard(_gameBoard, _handView, _discardCard);
         
         _shuffleDeck.Execute();
         _drawCard.Execute(_playerHand);
@@ -55,6 +57,6 @@ public class GameApplication : MonoBehaviour
         Debug.Log($"{selectedCard.name}"); 
         var card = cardsRepo.GetFromId(selectedCard.name);
         //Blas Aca nos da la posicion.
-        _playCard.Execute(card,_player, _playerHand,GenerationRow.Parent);
+        _playCard.Execute(card, _player, _playerHand, GenerationRow.Parent);
     }
 }
