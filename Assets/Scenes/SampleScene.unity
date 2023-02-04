@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsRepo: {fileID: 11400000, guid: 1ad11b27e1afef0469156d799bb24806, type: 2}
-  _handView: {fileID: 0}
+  _handView: {fileID: 1671314564}
 --- !u!4 &154081731
 Transform:
   m_ObjectHideFlags: 0

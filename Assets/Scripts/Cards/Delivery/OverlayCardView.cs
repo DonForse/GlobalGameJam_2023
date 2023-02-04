@@ -11,11 +11,13 @@ public class OverlayCardView : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     private Action<OverlayCardView> _startDrag;
     private Action<OverlayCardView> _endDrag;
 
+    public string CardId;
     public void Setup(Sprite sprite, string name)
     {
         cardImage.sprite = sprite;
         // this.cardName.text = name;
         this.name = name;
+        CardId = name;
     }
 
     public OverlayCardView WithDragging(Action<OverlayCardView> startDrag, Action<OverlayCardView> endDrag)
