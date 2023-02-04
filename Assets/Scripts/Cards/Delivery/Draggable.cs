@@ -1,57 +1,64 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour
+namespace Cards.Delivery
 {
-    [SerializeField] private Camera _camera;
-    private float startXPos;
-    private float startYPos;
-
-    private bool isDragging = false;
-
-    private void Update()
+    public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        if (isDragging)
+        private RectTransform _dropAreaPlay;
+        private Action<Draggable> _onPlayCallback;
+        private bool dragging = false;
+        private Action<bool> _onDrag;
+
+        public Draggable WithDropArea(RectTransform dropAreaPlay)
         {
-            DragObject();
-        }
-    }
-
-    private void OnMouseUp()
-    {
-        isDragging = false;
-    }
-
-    public void DragObject()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        Debug.Log(mousePos);
-
-        if (!_camera.orthographic)
-        {
-            mousePos.z = 10;
+            _dropAreaPlay = dropAreaPlay;
+            return this;
         }
 
-        mousePos = _camera.ScreenToWorldPoint(mousePos);
-        Debug.Log(mousePos);
-        transform.localPosition =
-            new Vector3(mousePos.x - startXPos, mousePos.y - startYPos, transform.localPosition.z);
-        Debug.Log(transform.localPosition);
-    }
-
-    private void OnMouseDown()
-    {
-        Vector3 mousePos = Input.mousePosition;
-
-        if (!_camera.orthographic)
+        public Draggable WithCallback(Action<Draggable> onPlayCallback)
         {
-            mousePos.z = 10;
+            _onPlayCallback = onPlayCallback;
+            return this;
         }
 
-        mousePos = _camera.ScreenToWorldPoint(mousePos);
+        public Draggable WithDragAction(Action<bool> onDrag)
+        {
+            _onDrag = onDrag;
+            return this;
+        }
+        // Update is called once per frame
+        void Update()
+        {
+            if (!dragging)
+                return;
+            var screenPoint = Input.mousePosition;
+            screenPoint.z = 10.0f; //distance of the plane from the camera
+            transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            transform.rotation = Quaternion.identity;
+        }
 
-        startXPos = mousePos.x - transform.localPosition.x;
-        startYPos = mousePos.y - transform.localPosition.y;
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            dragging = false;
+            if (_onPlayCallback == null)
+                return;
 
-        isDragging = true;
+            if (ViewsHelper.IsOverlapped(_dropAreaPlay, this.transform.position))
+                _onPlayCallback(this);
+
+            if (_onDrag != null)
+                _onDrag(false);
+            ViewsHelper.RefreshView(GetComponent<RectTransform>());
+        }
+
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            dragging = true;
+            if (_onDrag != null)
+                _onDrag(true);
+        }
     }
 }
