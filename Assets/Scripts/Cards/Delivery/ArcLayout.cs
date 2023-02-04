@@ -51,7 +51,7 @@ namespace Features.Common.Utilities
                 CalculatePairChildHeight();
                 return;
             }
-            CalculateUnevenChildHeight();
+            CalculateUnevenChildHeight();   
         }
 
         private void CalculateUnevenChildHeight()

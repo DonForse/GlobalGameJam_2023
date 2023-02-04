@@ -14,11 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FamilyMemberCards:
   - Name: Tu vieja
+    Drawing: {fileID: 21300000, guid: 8c7e05715ecdabd4eb3a62917f24db1f, type: 3}
   SabotageCards:
   - Name: Tu viejo
+    Drawing: {fileID: 0}
   ShieldCards:
   - Name: Mi vieja
+    Drawing: {fileID: 0}
   PrincipalOjectiveCards:
   - Name: Alguna vieja
+    Drawing: {fileID: 0}
   DeckObjectiveCard:
   - Name: La vieja del otro
+    Drawing: {fileID: 0}
+  CardFrame: {fileID: 0}

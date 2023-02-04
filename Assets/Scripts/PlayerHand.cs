@@ -4,6 +4,6 @@ namespace Actions
 {
     public class PlayerHand
     {
-        public List<Card> Cards;
+        public List<Card> Cards = new List<Card>();
     }
 }

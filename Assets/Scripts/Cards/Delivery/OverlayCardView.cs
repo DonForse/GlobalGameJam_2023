@@ -1,13 +1,31 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class OverlayCardView : MonoBehaviour
+public class OverlayCardView : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private Image cardImage;
-    [SerializeField] private TMP_Text name;
+    [SerializeField] private TMP_Text cardName;
+    private Action<OverlayCardView> _startDrag;
+    private Action<OverlayCardView> _endDrag;
+
     public void Setup(Sprite sprite, string name)
     {
         cardImage.sprite = sprite;
+        // this.cardName.text = name;
+        this.name = name;
     }
+
+    public OverlayCardView WithDragging(Action<OverlayCardView> startDrag, Action<OverlayCardView> endDrag)
+    {
+        _startDrag = startDrag;
+        _endDrag = endDrag;
+        return this;
+    }
+
+    public void OnPointerUp(PointerEventData eventData) => _startDrag.Invoke(this);
+
+    public void OnPointerDown(PointerEventData eventData) => _endDrag.Invoke(this);
 }
