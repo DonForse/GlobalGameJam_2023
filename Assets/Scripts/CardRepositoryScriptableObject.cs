@@ -9,4 +9,5 @@ public class CardRepositoryScriptableObject : ScriptableObject
     public ShieldCard[] ShieldCards;
     public PrincipalObjectiveCard[] PrincipalOjectiveCards;
     public DeckObjectiveCard[] DeckObjectiveCard;
+    public Sprite CardFrame;
 }
