@@ -4,20 +4,20 @@
     {
         private readonly DiscardPile _discardPile;
         private readonly Deck _deck;
-        private readonly Shuffle _shuffle;
+        private readonly ShuffleDeck _shuffleDeck;
         
-        public AddDiscardPileToDeck(DiscardPile discardPile, Deck deck, Shuffle shuffle)
+        public AddDiscardPileToDeck(DiscardPile discardPile, Deck deck, ShuffleDeck shuffleDeck)
         {
             _discardPile = discardPile;
             _deck = deck;
-            _shuffle = shuffle;
+            _shuffleDeck = shuffleDeck;
         }
         
         public void Execute()
         {
             foreach (var card in _discardPile.Cards)
                 _deck.Cards.Push(card);
-            _shuffle.Execute();
+            _shuffleDeck.Execute();
         }
     }
 }
