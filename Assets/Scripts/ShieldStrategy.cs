@@ -1,21 +1,20 @@
 ﻿using Cards;
 using UnityEngine;
 
-public class DeckObjectiveStrategy : IPlayCardStrategy
+public class ShieldStrategy : IPlayCardStrategy
 {
     private readonly GameBoard _gameBoard;
 
-    public DeckObjectiveStrategy(GameBoard gameBoard)
+    public ShieldStrategy(GameBoard gameBoard)
     {
         _gameBoard = gameBoard;
     }
 
-    public bool Is(Card card) => card.GetType() == typeof(DeckObjectiveCard);
+    public bool Is(Card card) => card.GetType() == typeof(ShieldCard);
 
     public bool CanPlay(Card card, Player player)
     {
-        var objectiveCard = (DeckObjectiveCard)card;
-        return _gameBoard.HasCardObjective(player, objectiveCard);
+        return false;
         // if (objectiveCard.GrandParents)
     }
 

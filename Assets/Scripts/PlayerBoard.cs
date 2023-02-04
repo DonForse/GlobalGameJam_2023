@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerBoard
 {
     public Player Player;
-
+    public int PlayerPoints;
+    
     private List<Card> ChildRow = new();
     private List<Card> ParentRow= new();
     private List<Card> GrandParentRow= new();
@@ -57,9 +58,25 @@ public class PlayerBoard
         }
     }
 
-    public bool HasObjectiveCondition(DeckObjectiveCard card)
+    public bool HasObjectiveCondition(ObjectiveCard card)
     {
         return (ChildRow.Count >= card.Childs && ParentRow.Count >= card.Parents &&
                 GrandParentRow.Count > card.GrandParents);
+    }
+
+    public void RemoveCards(ObjectiveCard card)
+    {
+        for (int i = 0; i < card.Childs; i++)
+        {
+            ChildRow.RemoveAt(0);
+        }
+        for (int i = 0; i < card.Parents; i++)
+        {
+            ParentRow.RemoveAt(0);
+        }
+        for (int i = 0; i < card.GrandParents; i++)
+        {
+            GrandParentRow.RemoveAt(0);
+        }
     }
 }

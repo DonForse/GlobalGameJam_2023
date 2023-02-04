@@ -3,10 +3,8 @@ using System;
 namespace Cards
 {
     [Serializable]
-    public class DeckObjectiveCard : Card
+    public class DeckObjectiveCard : ObjectiveCard
     {
-        public int GrandParents;
-        public int Parents;
-        public int Childs;
+       
     }
 }

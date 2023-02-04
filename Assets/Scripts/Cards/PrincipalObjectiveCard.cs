@@ -1,6 +1,7 @@
 ﻿using System;
+using Cards;
 
 [Serializable]
-public class PrincipalObjectiveCard : Card
+public class PrincipalObjectiveCard : ObjectiveCard
 {
 }
