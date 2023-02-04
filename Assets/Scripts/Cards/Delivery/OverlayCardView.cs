@@ -27,7 +27,7 @@ public class OverlayCardView : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         return this;
     }
 
-    public void OnPointerUp(PointerEventData eventData) => _startDrag.Invoke(this);
+    public void OnPointerUp(PointerEventData eventData) => _endDrag.Invoke(this);
 
-    public void OnPointerDown(PointerEventData eventData) => _endDrag.Invoke(this);
+    public void OnPointerDown(PointerEventData eventData) => _startDrag.Invoke(this);
 }

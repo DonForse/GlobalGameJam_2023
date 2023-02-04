@@ -34,7 +34,7 @@ public class GameApplication : MonoBehaviour
         _shuffleDeck = new ShuffleDeck(_deck);
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
-        _playCard = new PlayCard(_gameBoard);
+        _playCard = new PlayCard(_gameBoard, _handView);
         
         _shuffleDeck.Execute();
         _drawCard.Execute(_playerHand);

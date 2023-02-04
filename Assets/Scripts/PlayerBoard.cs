@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerBoard
 {
@@ -16,6 +17,7 @@ public class PlayerBoard
 
     public void Add(Card card, GenerationRow row)
     {
+        Debug.Log($"Add Card to {row}");
         switch (row)
         {
             case GenerationRow.None:
