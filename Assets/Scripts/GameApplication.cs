@@ -7,6 +7,6 @@ public class GameApplication : MonoBehaviour
     void Start()
     {
         var deck = new Deck(cardsRepo);
-        //deck.Initialize();
+        deck.Initialize();
     }
 }

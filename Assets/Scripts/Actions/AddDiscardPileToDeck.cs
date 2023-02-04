@@ -15,8 +15,7 @@
         
         public void Execute()
         {
-            foreach (var card in _discardPile.Cards)
-                _deck.Cards.Push(card);
+            foreach (var card in _discardPile.Cards) _deck.AddACard(card);
             _shuffleDeck.Execute();
         }
     }
