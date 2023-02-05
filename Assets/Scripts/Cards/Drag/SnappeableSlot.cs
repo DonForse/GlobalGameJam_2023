@@ -16,16 +16,18 @@ namespace Cards.Drag
         public Renderer hoveringRenderer;
         public Color hoveringColor = Color.yellow;
 
+
+        public bool IsFree { get; private set; } = true;
+
         private void Awake()
         {
-            drawRenderer.sprite = null;
-            frameRenderer.sprite = null;
-            name.text = string.Empty;
+            Clear();
             HideHovering();
         }
         
         public void ShowCard(Card card)
         {
+            IsFree = false;
             HideHovering();
             drawRenderer.sprite = card.Drawing;
             frameRenderer.sprite = cardsRepository.CardFrame;
@@ -48,6 +50,14 @@ namespace Cards.Drag
         private void Update()
         {
             HideHovering();
+        }
+
+        public void Clear()
+        {
+            IsFree = true;
+            drawRenderer.sprite = null;
+            frameRenderer.sprite = null;
+            name.text = string.Empty;
         }
     }
 }
