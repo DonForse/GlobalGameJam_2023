@@ -137,7 +137,7 @@ public class GameApplication : MonoBehaviour
         }
 
         if (_hasShield.Execute(_player.PlayerHand))
-            shieldView.OnShieldCalled(_playCard, _player, callBack);
+            shieldView.OnShieldCalled(_playCard, _player, _handView, callBack);
         else
             callBack(false);
     }

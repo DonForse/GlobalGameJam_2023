@@ -1,10 +1,12 @@
 ﻿using Actions;
 using Cards;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShieldStrategy : IPlayCardStrategy
 {
     private readonly DiscardCard _discardCard;
+    private UnityEvent _cardPlayed = new();
 
     public ShieldStrategy(DiscardCard discardCard)
     {
@@ -22,7 +24,10 @@ public class ShieldStrategy : IPlayCardStrategy
     {
         _discardCard.Execute(card);
         Debug.Log("shield card completed");
+        CardPlayed.Invoke();
     }
+
+    public UnityEvent CardPlayed => _cardPlayed; 
 }
 
 public static class EstaEnSabotageService

@@ -1,8 +1,10 @@
 ﻿using Cards;
+using UnityEngine.Events;
 
 public class DeckObjectiveStrategy : IPlayCardStrategy
 {
     private readonly GameBoard _gameBoard;
+    private UnityEvent _cardPlayed = new();
 
     public DeckObjectiveStrategy(GameBoard gameBoard)
     {
@@ -23,4 +25,6 @@ public class DeckObjectiveStrategy : IPlayCardStrategy
         _gameBoard.AddPoint(player);
         TrophiesService.AddTrophy(player);
     }
+
+    public UnityEvent CardPlayed => _cardPlayed;
 }

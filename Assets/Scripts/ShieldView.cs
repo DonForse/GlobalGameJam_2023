@@ -7,20 +7,29 @@ public class ShieldView : MonoBehaviour
 {
     [SerializeField] private Button yesButton;
     [SerializeField] private Button noButton;
-    
-    public void OnShieldCalled(PlayCard playCard, Player player, Action<bool> callBack)
+
+    private void OnEnable()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnShieldCalled(PlayCard playCard, Player player, HandView handView, Action<bool> callBack)
     {
         Show();
         yesButton.onClick.AddListener(() =>
         {
             Hide();
+            if (playCard.Execute(GetAShieldCard(player), player, GenerationRow.Board));
+                handView.RemoveCard(GetAShieldCard(player));
+
             callBack(true);
-            playCard.Execute(GetAShieldCard(player), player, GenerationRow.Board);
+            yesButton.onClick.RemoveAllListeners();
         });
         noButton.onClick.AddListener(() =>
         {
             Hide();
             callBack(false);
+            noButton.onClick.RemoveAllListeners();
         });
     }
 

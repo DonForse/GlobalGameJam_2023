@@ -21,6 +21,15 @@ public class PlayCard
             new ShieldStrategy(discardCard),
             new DeckObjectiveStrategy(gameBoard),
         };
+        foreach (var strategy in _playCardStrategies)
+        {
+            strategy.CardPlayed.AddListener(CardPlayed);
+        }
+    }
+
+    private void CardPlayed()
+    {
+        OnCardPlayed?.Invoke();
     }
 
     public bool Execute(Card selectedCard, 
@@ -36,7 +45,6 @@ public class PlayCard
         {
             RemoveCardFromHand(selectedCard, player.PlayerHand);
             strategy.Execute(selectedCard, player, rowSelected);
-            OnCardPlayed?.Invoke();
             return true;
         }
 

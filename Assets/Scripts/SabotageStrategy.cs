@@ -1,6 +1,7 @@
 ﻿using System;
 using Actions;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SabotageStrategy : IPlayCardStrategy
 {
@@ -27,8 +28,13 @@ public class SabotageStrategy : IPlayCardStrategy
             EstaEnSabotageService.Sabotage = false;
             if (!result)
                 _gameBoard.RemoveAllCardsFromOpponent(player, row);
+            
+            _discardCard.Execute(card);
+            _cardPlayed.Invoke();
         });
-        _discardCard.Execute(card);
-        Debug.Log("Sabotage completed");
     }
+
+    public UnityEvent CardPlayed => _cardPlayed;
+
+    private UnityEvent _cardPlayed = new UnityEvent();
 }
