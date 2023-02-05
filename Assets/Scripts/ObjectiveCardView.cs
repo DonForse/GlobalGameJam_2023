@@ -49,7 +49,7 @@ public class ObjectiveCardView: MonoBehaviour, IPointerDownHandler
     {
         if (_canClaimTrophy.Execute(CardId))
         {
-            _claimTrophy.Execute();
+            _claimTrophy.Execute(CardId);
             DeactivateCard();
         }
     }

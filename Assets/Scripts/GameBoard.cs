@@ -58,4 +58,11 @@ public class GameBoard
         var principalObjectiveCard = _principalObjectiveDeck.Cards.First(x => x.Name == cardId);
         return playerBoard.Any(x => x.HasObjectiveCondition(principalObjectiveCard));
     }
+
+    public void CompletePrincipalObjectiveCard(string cardId, Player player)
+    {
+        var playerBoard = FindPlayerBoardByPlayer(player);
+        var principalObjectiveCard = _principalObjectiveDeck.Cards.First(x => x.Name == cardId);
+        playerBoard.First().RemoveCards(principalObjectiveCard);
+    }
 }

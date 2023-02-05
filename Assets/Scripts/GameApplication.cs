@@ -172,10 +172,12 @@ public class ClaimTrophy
         _getPlayerFromTurn = getPlayerFromTurn;
     }
 
-    public void Execute()
+    public void Execute(string cardId)
     {
         var player = _getPlayerFromTurn.Execute();
+        _gameBoard.CompletePrincipalObjectiveCard(cardId, player);
         TrophiesService.AddTrophy(player);
         _gameBoard.AddPoint(player);
     }
+    
 }
