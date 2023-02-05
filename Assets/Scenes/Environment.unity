@@ -16993,6 +16993,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 393832562}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &394386535 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 394386535, guid: aeb605e0488e941889c0b58d781aca2c,
+    type: 3}
+  m_PrefabInstance: {fileID: 142349906}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd777afac98448280b517822a528449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &395874468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47372,7 +47384,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  pivot: {x: 400, y: 0}
+  pivot: {x: 1000, y: 0}
   angle: 20
   spreadWidth: 120
   spreadHeight: 40
@@ -58464,10 +58476,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsRepo: {fileID: 11400000, guid: 1ad11b27e1afef0469156d799bb24806, type: 2}
+  _principalObjectiveCardRepo: {fileID: 11400000, guid: ab3661fc2942c4aab8255f0f41fbe886,
+    type: 2}
   _handView: {fileID: 2138026126}
   gameView: {fileID: 1076280185}
   _botService: {fileID: 312276641}
   shieldView: {fileID: 776914080}
+  _principalObjectivesCardsView: {fileID: 394386535}
 --- !u!4 &1362638005
 Transform:
   m_ObjectHideFlags: 0

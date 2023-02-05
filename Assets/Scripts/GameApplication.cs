@@ -1,19 +1,23 @@
 using System;
 using Actions;
 using Cards.Drag;
+using Game;
 using UnityEngine;
 
 public class GameApplication : MonoBehaviour
 {
     [SerializeField] private CardRepositoryScriptableObject cardsRepo;
+    [SerializeField] private PrincipalObjectiveCardRepositoryScriptableObject _principalObjectiveCardRepo;
     [SerializeField] private HandView _handView;
     [SerializeField] private GameView gameView;
     [SerializeField] private BotService _botService;
     [SerializeField] private ShieldView shieldView;
+    [SerializeField] private PrincipalObjectiveCardsView _principalObjectivesCardsView;
     private AddDiscardPileToDeck _addDiscardPileToDeck;
     private DrawCard _drawCard;
     private ShuffleDeck _shuffleDeck;
     private Deck _deck;
+    private ObjectiveDeck _principalObjectivesDeck;
     private DiscardPile _discardPile;
     private GameBoard _gameBoard;
     private PlayCard _playCard;
@@ -34,6 +38,9 @@ public class GameApplication : MonoBehaviour
             PlayerHand = new PlayerHand()
         };
 
+        _principalObjectivesDeck = new ObjectiveDeck(_principalObjectiveCardRepo);
+        _principalObjectivesDeck.Initialize();
+        
         _deck = new Deck(cardsRepo);
         _deck.Initialize();
 
@@ -45,7 +52,6 @@ public class GameApplication : MonoBehaviour
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
         _hasShield = new HasShield();
-        new ShowPromptToUseShield();
         _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
         _turnService = new TurnService(gameView, _playCard);
         _botService = _botService.With(_turnService, _playCard, _npc);
@@ -54,7 +60,13 @@ public class GameApplication : MonoBehaviour
         
         InitialGameSetUp();
         AddHandCardsVisually();
+        AddPrincipalObjectiveCardsVisually();
         _turnService.StartTurn(PlayerEnum.Player);
+    }
+
+    private void AddPrincipalObjectiveCardsVisually()
+    {
+        _principalObjectivesCardsView.AddCards(_principalObjectivesDeck);
     }
 
     private void AddHandCardsVisually()

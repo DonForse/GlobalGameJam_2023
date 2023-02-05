@@ -19,4 +19,28 @@ MonoBehaviour:
     GrandParents: 0
     Parents: 0
     Childs: 0
+  - Name: Alguna vieja
+    Drawing: {fileID: 21300000, guid: 2e566e1e50d3d8b4e92e6d5daf6e5636, type: 3}
+    DeckInitialAmount: 1
+    GrandParents: 0
+    Parents: 0
+    Childs: 0
+  - Name: Alguna vieja
+    Drawing: {fileID: 21300000, guid: 2e566e1e50d3d8b4e92e6d5daf6e5636, type: 3}
+    DeckInitialAmount: 1
+    GrandParents: 0
+    Parents: 0
+    Childs: 0
+  - Name: Alguna vieja
+    Drawing: {fileID: 21300000, guid: 2e566e1e50d3d8b4e92e6d5daf6e5636, type: 3}
+    DeckInitialAmount: 1
+    GrandParents: 0
+    Parents: 0
+    Childs: 0
+  - Name: Alguna vieja
+    Drawing: {fileID: 21300000, guid: 2e566e1e50d3d8b4e92e6d5daf6e5636, type: 3}
+    DeckInitialAmount: 1
+    GrandParents: 0
+    Parents: 0
+    Childs: 0
   CardFrame: {fileID: 21300000, guid: 6b355c977868d47588ca9405d02a7649, type: 3}

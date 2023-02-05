@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3771266333135496361}
-  - component: {fileID: 5439922558454996093}
   - component: {fileID: 3701479283212790309}
+  - component: {fileID: 8177369829529726463}
   m_Layer: 5
   m_Name: ThropyCard
   m_TagString: Untagged
@@ -39,21 +39,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5439922558454996093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647410937886364302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef59250e396405590b5c8b3393a286a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardImage: {fileID: 2094395325646089220}
-  cardName: {fileID: 0}
-  CardId: Tu vieja
 --- !u!114 &3701479283212790309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,6 +59,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8177369829529726463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647410937886364302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fda2dcab33fe4af89d094755b0d698e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardImage: {fileID: 2094395325646089220}
+  cardName: {fileID: 0}
+  CardId: Tu vieja
 --- !u!1 &4899532101125404042
 GameObject:
   m_ObjectHideFlags: 0
