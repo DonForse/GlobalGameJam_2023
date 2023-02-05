@@ -45,19 +45,19 @@ public class GameApplication : MonoBehaviour
         _deck.Initialize();
 
         _gameBoard = new GameBoard();
-        _gameBoard.Initialize(_player, _npc);
-        _shuffleDeck = new ShuffleDeck(_deck);
-        _discardPile = new DiscardPile();
         _discardCard = new DiscardCard(_discardPile);
-        _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
+        _discardPile = new DiscardPile();
+        _shuffleDeck = new ShuffleDeck(_deck);
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
+        _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
         _hasShield = new HasShield();
         _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
         _turnService = new TurnService(gameView, _playCard);
         _botService = _botService.With(_turnService, _playCard, _npc);
         _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
         _handView = _handView.WithTurnService(_turnService);
-        
+
+        _gameBoard.Initialize(_player, _npc, _discardCard);
         InitialGameSetUp();
         AddHandCardsVisually();
         AddPrincipalObjectiveCardsVisually();

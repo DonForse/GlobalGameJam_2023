@@ -8,10 +8,6 @@ public class BoardView : MonoBehaviour
     public void AddTrophy()
     {
     }
-    
-    public void RemoveCard()
-    {
-    }
 
     public void AddCard(Player player, Card card, GenerationRow row)
     {
@@ -27,5 +23,13 @@ public class BoardView : MonoBehaviour
             playerSide.RemoveRow(row);
         else
             opponentSide.RemoveRow(row);
+    }
+
+    public void Remove(Player player, GenerationRow row)
+    {
+        if (!player.IsOpponent)
+            playerSide.RemoveCard(row);
+        else
+            opponentSide.RemoveCard(row);
     }
 }

@@ -43,4 +43,14 @@ public class PlayerSideBoardView : MonoBehaviour
             slot.Clear();
         }
     }
+
+    public void RemoveCard(GenerationRow row)
+    {
+        Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        Debug.Log($"Remove row {row.ToString()}");
+        foreach (var slot in GetSnappeableSlots(row))
+        {
+            slot.Clear();
+        }
+    }
 }
