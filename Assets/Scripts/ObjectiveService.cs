@@ -19,8 +19,9 @@ public static class ObjectiveService
         return PrincipalObjectiveCards;
     }
 
-    public static void Claim(ObjectiveCard card)
+    public static void Claim(string name)
     {
+        var card = PrincipalObjectiveCards.First(x => x.Name == name);
         PrincipalObjectiveCards.Remove(card);
         CardClaimed.Invoke(card);
     }

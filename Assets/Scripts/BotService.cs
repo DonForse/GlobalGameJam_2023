@@ -11,14 +11,16 @@ public class BotService : MonoBehaviour
     private  PlayCard _playCard;
     private  Player _botPlayer;
     private CanClaimTrophy _canClaimTrophy;
+    private ClaimTrophy _claimTrophy;
 
-    public BotService With(TurnService turnService, PlayCard playCard, Player npc, CanClaimTrophy canClaimTrophy)
+    public BotService With(TurnService turnService, PlayCard playCard, Player npc, CanClaimTrophy canClaimTrophy, ClaimTrophy claimTrophy)
     {
         _turnService = turnService;
         _playCard = playCard;
         _botPlayer = npc;
         _canClaimTrophy = canClaimTrophy;
         _turnService.OnTurnChange.AddListener(StartPlay);
+        _claimTrophy = claimTrophy;
 
         return this;
     }
@@ -39,8 +41,9 @@ public class BotService : MonoBehaviour
         {
             foreach (var objective in ObjectiveService.Get().ToList())
             {
-                if (_canClaimTrophy.Execute(objective.Name))
-                    ObjectiveService.Claim(objective);
+                if (_canClaimTrophy.Execute(objective.Name)){
+                    _claimTrophy.Execute(objective.Name);
+                }
             }
 
             yield return new WaitForSeconds(1f);

@@ -43,7 +43,7 @@ public class GameApplication : MonoBehaviour
 
         _principalObjectivesDeck = new ObjectiveDeck(_principalObjectiveCardRepo);
         _principalObjectivesDeck.Initialize();
-        
+
         _deck = new Deck(cardsRepo);
         _deck.Initialize();
         _discardPile = new DiscardPile();
@@ -52,14 +52,14 @@ public class GameApplication : MonoBehaviour
         _discardCard = new DiscardCard(_discardPile);
         _shuffleDeck = new ShuffleDeck(_deck);
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
-        _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
+        _drawCard = new DrawCard(_deck, _addDiscardPileToDeck);
         _hasShield = new HasShield();
         _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
         _turnService = new TurnService(gameView, _playCard);
         _getPlayerFromTurn = new GetPlayerFromTurn(_turnService, _player, _npc);
         _canClaimTrophy = new CanClaimTrophy(_gameBoard, _getPlayerFromTurn);
         _claimTrophy = new ClaimTrophy(_gameBoard, _getPlayerFromTurn);
-        _botService = _botService.With(_turnService, _playCard, _npc, _canClaimTrophy);
+        _botService = _botService.With(_turnService, _playCard, _npc, _canClaimTrophy, _claimTrophy);
 
         _gameBoard.Initialize(_player, _npc, _discardCard);
         _handView = _handView.WithTurnService(_turnService);
@@ -67,7 +67,7 @@ public class GameApplication : MonoBehaviour
 
         ObjectiveService.Initialize(_principalObjectivesDeck);
         TrophiesService.SomeoneWon.AddListener(gameView.WinGame);
-        
+
         InitialGameSetUp();
         AddHandCardsVisually();
         AddPrincipalObjectiveCardsVisually();
@@ -77,7 +77,8 @@ public class GameApplication : MonoBehaviour
 
     private void DrawNewCards(PlayerEnum playerEnum)
     {
-        if (playerEnum == PlayerEnum.Npc){
+        if (playerEnum == PlayerEnum.Npc)
+        {
             while (_npc.PlayerHand.Cards.Count < 5) _drawCard.Execute(_npc);
         }
         else
@@ -89,9 +90,9 @@ public class GameApplication : MonoBehaviour
             }
         }
     }
-    
 
-    private void AddPrincipalObjectiveCardsVisually() => 
+
+    private void AddPrincipalObjectiveCardsVisually() =>
         _principalObjectivesCardsView.Init(_canClaimTrophy, _claimTrophy);
 
     private void AddHandCardsVisually()
@@ -130,6 +131,7 @@ public class GameApplication : MonoBehaviour
         var card = cardsRepo.GetFromId(selectedCard.name);
         DraggingService.StartDragging(card, generationRow => CardEndDrag(selectedCard, generationRow));
     }
+
     private void CardEndDrag(OverlayCardView selectedCard, GenerationRow generationRow)
     {
         _handView.Show();
@@ -142,7 +144,7 @@ public class GameApplication : MonoBehaviour
 
 public class HasShield
 {
-    public bool Execute(PlayerHand playerHand) => 
+    public bool Execute(PlayerHand playerHand) =>
         playerHand.Cards.Exists(x => x.GetType() == typeof(ShieldCard));
 }
 
@@ -179,6 +181,6 @@ public class ClaimTrophy
         _gameBoard.CompletePrincipalObjectiveCard(cardId, player);
         TrophiesService.AddTrophy(player);
         _gameBoard.AddPoint(player);
+        ObjectiveService.Claim(cardId);
     }
-    
 }
