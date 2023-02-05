@@ -9,6 +9,7 @@ namespace Cards.Drag
         public SpriteRenderer drawRenderer;
         public SpriteRenderer frameRenderer;
         public TMP_Text name;
+        public GenerationRow Generation;
         public CardRepositoryScriptableObject cardsRepository;
         
         [Space, Header("Hover")]

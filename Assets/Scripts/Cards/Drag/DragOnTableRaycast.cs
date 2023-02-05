@@ -15,7 +15,7 @@ namespace Cards.Drag
             DraggingService.OnStartDragging.AddListener(HandleDragging);
         }
 
-        private void HandleDragging(Card card, Action stopDragging)
+        private void HandleDragging(Card card, Action<GenerationRow> stopDragging)
         {
             StartCoroutine(ListenToRayCast(card, stopDragging));
         }
@@ -27,7 +27,7 @@ namespace Cards.Drag
                 Gizmos.DrawRay((Ray) ray);
         }
 
-        private IEnumerator ListenToRayCast(Card cardData, Action stopDragging)
+        private IEnumerator ListenToRayCast(Card cardData, Action<GenerationRow> stopDragging)
         {
 
             while (DraggingService.IsDragging)
@@ -48,14 +48,14 @@ namespace Cards.Drag
             ray = null;
         }
 
-        private static void OnOveringSlot(Card cardData, Action stopDragging, SnappeableSlot slot)
+        private static void OnOveringSlot(Card cardData, Action<GenerationRow> stopDragging, SnappeableSlot slot)
         {
             slot.OnOvering();
 
             if (Input.GetMouseButtonUp(0))
             {
                 slot.SnapCard(cardData);
-                stopDragging();
+                stopDragging(slot.Generation);
             }
         }
     }

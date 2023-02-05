@@ -3,5 +3,6 @@
     None,
     Child,
     Parent,
-    GrandParent
+    GrandParent,
+    Board
 }

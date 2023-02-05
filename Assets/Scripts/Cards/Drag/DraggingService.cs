@@ -5,17 +5,17 @@ namespace Cards.Drag
 {
     public static class DraggingService
     {
-        public static readonly UnityEvent<Card, Action> OnStartDragging = new();
+        public static readonly UnityEvent<Card, Action<GenerationRow>> OnStartDragging = new();
         public static bool IsDragging => _isDragging;
         private static bool _isDragging = false;
 
-        public static void StartDragging(Card card, Action callback)
+        public static void StartDragging(Card card, Action<GenerationRow> callback)
         {
             _isDragging = true;
-            OnStartDragging.Invoke(card, () =>
+            OnStartDragging.Invoke(card, generationRow =>
             {
                 _isDragging = false;
-                callback();
+                callback(generationRow);
             });
         }
     }

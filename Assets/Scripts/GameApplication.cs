@@ -53,12 +53,12 @@ public class GameApplication : MonoBehaviour
     {
         Debug.Log($"Start card drag: {selectedCard.name}");
         var card = cardsRepo.GetFromId(selectedCard.name);
-        DraggingService.StartDragging(card, () => CardEndDrag(selectedCard));
+        DraggingService.StartDragging(card, generationRow => CardEndDrag(selectedCard, generationRow));
     }
-    private void CardEndDrag(OverlayCardView selectedCard)
+    private void CardEndDrag(OverlayCardView selectedCard, GenerationRow generationRow)
     {
-        Debug.Log($"End card drag{selectedCard.name}"); 
+        Debug.Log($"End card drag {selectedCard.name}");
         var card = cardsRepo.GetFromId(selectedCard.name);
-        _playCard.Execute(card, _player, _playerHand, GenerationRow.Parent);
+        _playCard.Execute(card, _player, _playerHand, generationRow);
     }
 }
