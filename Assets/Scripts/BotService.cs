@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Actions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,12 +10,14 @@ public class BotService : MonoBehaviour
     private  TurnService _turnService;
     private  PlayCard _playCard;
     private  Player _botPlayer;
+    private CanClaimTrophy _canClaimTrophy;
 
-    public BotService With(TurnService turnService, PlayCard playCard, Player npc)
+    public BotService With(TurnService turnService, PlayCard playCard, Player npc, CanClaimTrophy canClaimTrophy)
     {
         _turnService = turnService;
         _playCard = playCard;
-        _botPlayer = npc;   
+        _botPlayer = npc;
+        _canClaimTrophy = canClaimTrophy;
         _turnService.OnTurnChange.AddListener(StartPlay);
 
         return this;
@@ -33,7 +36,13 @@ public class BotService : MonoBehaviour
         int cardPlayedCount = 0;
 
         foreach (var card in _botPlayer.PlayerHand.Cards.ToList())
-        {      
+        {
+            foreach (var objective in ObjectiveService.Get().ToList())
+            {
+                if (_canClaimTrophy.Execute(objective.Name))
+                    ObjectiveService.Claim(objective);
+            }
+
             yield return new WaitForSeconds(1f);
 
             var cardDomain = cardsRepo.GetFromId(card.Name);

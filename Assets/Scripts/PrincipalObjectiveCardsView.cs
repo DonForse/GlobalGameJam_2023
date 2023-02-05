@@ -12,16 +12,17 @@ public class PrincipalObjectiveCardsView : MonoBehaviour
     private CanClaimTrophy _canClaimTrophy;
     private ClaimTrophy _claimTrophy;
 
-    public void Init(ObjectiveDeck deck, CanClaimTrophy canClaimTrophy, ClaimTrophy claimTrophy)
+    public void Init(CanClaimTrophy canClaimTrophy, ClaimTrophy claimTrophy)
     {
         _claimTrophy = claimTrophy;
         _canClaimTrophy = canClaimTrophy;
-        AddCards(deck);
+        AddCards();
     }
 
-    private void AddCards(ObjectiveDeck deck)
+    private void AddCards()
     {
-        foreach (var card in deck.Cards) AddCard(card);
+        foreach (var card in ObjectiveService.Get())
+            AddCard(card);
     }
 
     private void AddCard(ObjectiveCard card)

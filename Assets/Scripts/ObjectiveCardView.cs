@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Actions;
+using Cards;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +22,13 @@ public class ObjectiveCardView: MonoBehaviour, IPointerDownHandler
     {
         _canClaimTrophy = canClaimTrophy;
         _claimTrophy = claimTrophy;
+        ObjectiveService.CardClaimed.AddListener(RemoveIfOwn);
+    }
+
+    private void RemoveIfOwn(ObjectiveCard card)
+    {
+        if (card.Name == CardId)
+            DeactivateCard();
     }
 
     public void Setup(Sprite sprite, string name, int[] objectiveValues)
@@ -51,7 +59,6 @@ public class ObjectiveCardView: MonoBehaviour, IPointerDownHandler
         if (_canClaimTrophy.Execute(CardId))
         {
             _claimTrophy.Execute(CardId);
-            DeactivateCard();
         }
     }
 

@@ -59,12 +59,13 @@ public class GameApplication : MonoBehaviour
         _getPlayerFromTurn = new GetPlayerFromTurn(_turnService, _player, _npc);
         _canClaimTrophy = new CanClaimTrophy(_gameBoard, _getPlayerFromTurn);
         _claimTrophy = new ClaimTrophy(_gameBoard, _getPlayerFromTurn);
-        _botService = _botService.With(_turnService, _playCard, _npc);
+        _botService = _botService.With(_turnService, _playCard, _npc, _canClaimTrophy);
 
-        _gameBoard.Initialize(_player, _npc, _discardCard, _principalObjectivesDeck);
+        _gameBoard.Initialize(_player, _npc, _discardCard);
         _handView = _handView.WithTurnService(_turnService);
         _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
 
+        ObjectiveService.Initialize(_principalObjectivesDeck);
         TrophiesService.SomeoneWon.AddListener(gameView.WinGame);
         
         InitialGameSetUp();
@@ -91,7 +92,7 @@ public class GameApplication : MonoBehaviour
     
 
     private void AddPrincipalObjectiveCardsVisually() => 
-        _principalObjectivesCardsView.Init(_principalObjectivesDeck, _canClaimTrophy, _claimTrophy);
+        _principalObjectivesCardsView.Init(_canClaimTrophy, _claimTrophy);
 
     private void AddHandCardsVisually()
     {
