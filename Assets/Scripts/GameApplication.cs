@@ -20,7 +20,7 @@ public class GameApplication : MonoBehaviour
 
     void Start()
     {
-        _handView = _handView.WithOnCardSelected(CardStartDrag,CardEndDrag);
+        _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
 
         _player = new Player();
         _npc = new Player();
@@ -59,7 +59,6 @@ public class GameApplication : MonoBehaviour
     {
         Debug.Log($"End card drag{selectedCard.name}"); 
         var card = cardsRepo.GetFromId(selectedCard.name);
-        //Blas Aca nos da la posicion.
         _playCard.Execute(card, _player, _playerHand, GenerationRow.Parent);
     }
 }

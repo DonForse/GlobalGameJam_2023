@@ -3,6 +3,5 @@
     None,
     Child,
     Parent,
-    GrandParent,
-    
+    GrandParent
 }
