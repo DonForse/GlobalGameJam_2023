@@ -8,7 +8,6 @@ public class CardRepositoryScriptableObject : ScriptableObject
     public FamilyMemberCard[] FamilyMemberCards;
     public SabotageCard[] SabotageCards;
     public ShieldCard[] ShieldCards;
-    public PrincipalObjectiveCard[] PrincipalOjectiveCards;
     public DeckObjectiveCard[] DeckObjectiveCard;
     public Sprite CardFrame;
 
@@ -22,10 +21,7 @@ public class CardRepositoryScriptableObject : ScriptableObject
         
         var shieldCard = ShieldCards.FirstOrDefault(x => x.Name == selectedCardCardId);
         if (shieldCard != null) return shieldCard;
-        
-        var principalObjectiveCard = PrincipalOjectiveCards.FirstOrDefault(x => x.Name == selectedCardCardId);
-        if (principalObjectiveCard != null) return principalObjectiveCard;
-        
+
         var deckObjectiveCard = DeckObjectiveCard.FirstOrDefault(x => x.Name == selectedCardCardId);
         if (deckObjectiveCard != null) return deckObjectiveCard;
         

@@ -13,7 +13,6 @@ public class Deck{
     private void AddCardsToDeck()
     {
         AddCardOfType(_cardRepository.FamilyMemberCards);
-        AddCardOfType(_cardRepository.PrincipalOjectiveCards);
         AddCardOfType(_cardRepository.DeckObjectiveCard);
         AddCardOfType(_cardRepository.SabotageCards);
         AddCardOfType(_cardRepository.ShieldCards);
