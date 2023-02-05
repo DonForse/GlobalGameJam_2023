@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Actions;
+using UnityEngine.Events;
 
 public class PlayCard
 {
-    public event EventHandler OnCardPlayed;
+    public UnityEvent OnCardPlayed = new UnityEvent();
     private readonly List<IPlayCardStrategy> _playCardStrategies;
 
 
@@ -20,12 +21,12 @@ public class PlayCard
         };
     }
 
-    public void Execute(Card selectedCard, 
+    public bool Execute(Card selectedCard, 
         Player player,
         GenerationRow rowSelected)
     {
         if (rowSelected == GenerationRow.None)
-            return;
+            return false;
 
         RemoveCardFromHand(selectedCard, player.PlayerHand);
         foreach (var strategy in _playCardStrategies
@@ -33,8 +34,11 @@ public class PlayCard
                                         && strategy.CanPlay(selectedCard, player)))
         {
             strategy.Execute(selectedCard, player, rowSelected);
-            OnCardPlayed?.Invoke(null, null);
+            OnCardPlayed?.Invoke();
+            return true;
         }
+
+        return false;
     }
 
     private static void RemoveCardFromHand(Card selectedCard, PlayerHand hand)
