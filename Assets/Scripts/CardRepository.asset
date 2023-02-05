@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: CardRepository
   m_EditorClassIdentifier: 
   FamilyMemberCards:
-  - Name: Tu vieja
+  - Name: Pepe
     Drawing: {fileID: 21300000, guid: f09290f9182a78645946e56671006f3d, type: 3}
     DeckInitialAmount: 8
-  - Name: Tu vieja
+  - Name: Chino
     Drawing: {fileID: 21300000, guid: f81cd02b151d46246b185860006e9aa3, type: 3}
     DeckInitialAmount: 8
-  - Name: Tu vieja
+  - Name: Ricardo
     Drawing: {fileID: 21300000, guid: 5e232ff8661419a4980cb3a789fcb7eb, type: 3}
     DeckInitialAmount: 8
   SabotageCards:
