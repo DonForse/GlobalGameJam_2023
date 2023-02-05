@@ -1,4 +1,5 @@
 ﻿using Cards;
+using Unity.VisualScripting;
 
 public class DeckObjectiveStrategy : IPlayCardStrategy
 {
@@ -21,5 +22,6 @@ public class DeckObjectiveStrategy : IPlayCardStrategy
     {
         _gameBoard.CompleteObjectiveCard((ObjectiveCard)card, player);
         _gameBoard.AddPoint(card, player);
+        TrophiesService.AddTrophy(player);
     }
 }

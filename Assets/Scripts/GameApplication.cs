@@ -58,6 +58,8 @@ public class GameApplication : MonoBehaviour
         _gameBoard.Initialize(_player, _npc, _discardCard);
         _handView = _handView.WithTurnService(_turnService);
         _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
+
+        TrophiesService.SomeoneWon.AddListener(gameView.WinGame);
         
         InitialGameSetUp();
         AddHandCardsVisually();
