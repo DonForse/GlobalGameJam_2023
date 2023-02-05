@@ -38,8 +38,12 @@ namespace Cards.Drag
 
                 var slot = hits.Select(it => it.collider.GetComponent<SnappeableSlot>())
                     .FirstOrDefault(it => it != null);
-                if (slot == null) continue;
-                
+                if (slot == null)
+                {
+                    if(Input.GetMouseButtonUp(0))
+                        stopDragging(GenerationRow.Board);
+                    continue;
+                }
                 
                 OnOveringSlot(cardData, stopDragging, slot);
 
