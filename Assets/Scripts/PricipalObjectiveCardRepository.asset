@@ -13,31 +13,31 @@ MonoBehaviour:
   m_Name: PricipalObjectiveCardRepository
   m_EditorClassIdentifier: 
   PrincipalOjectiveCards:
-  - Name: Alguna vieja
+  - Name: objectivesOne
     Drawing: {fileID: 21300000, guid: 80b92dd492fca5e4e9d04a4bb2e20c1f, type: 3}
     DeckInitialAmount: 1
     GrandParents: 4
     Parents: 2
     Children: 0
-  - Name: Alguna vieja
+  - Name: objectivesTwo
     Drawing: {fileID: 21300000, guid: 80b92dd492fca5e4e9d04a4bb2e20c1f, type: 3}
     DeckInitialAmount: 1
     GrandParents: 0
     Parents: 4
     Children: 0
-  - Name: Alguna vieja
+  - Name: objectivesThree
     Drawing: {fileID: 21300000, guid: 80b92dd492fca5e4e9d04a4bb2e20c1f, type: 3}
     DeckInitialAmount: 1
     GrandParents: 3
     Parents: 0
     Children: 0
-  - Name: Alguna vieja
+  - Name: objectivesOneFour
     Drawing: {fileID: 21300000, guid: 80b92dd492fca5e4e9d04a4bb2e20c1f, type: 3}
     DeckInitialAmount: 1
     GrandParents: 4
     Parents: 3
     Children: 0
-  - Name: Alguna vieja
+  - Name: objectivesFive
     Drawing: {fileID: 21300000, guid: 80b92dd492fca5e4e9d04a4bb2e20c1f, type: 3}
     DeckInitialAmount: 1
     GrandParents: 1
