@@ -91,7 +91,7 @@ public class GameApplication : MonoBehaviour
     
 
     private void AddPrincipalObjectiveCardsVisually() => 
-        _principalObjectivesCardsView.Init(_principalObjectivesDeck, _canClaimTrophy);
+        _principalObjectivesCardsView.Init(_principalObjectivesDeck, _canClaimTrophy, _claimTrophy);
 
     private void AddHandCardsVisually()
     {
