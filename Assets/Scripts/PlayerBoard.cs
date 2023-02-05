@@ -36,8 +36,12 @@ public class PlayerBoard
             default:
                 throw new ArgumentOutOfRangeException(nameof(row), row, null);
         }
+
+        BoardView().AddCard(Player, card, row);
     }
-    
+
+    private static BoardView BoardView() => GameObject.FindObjectOfType<BoardView>();
+
     public void RemoveCardFromRow(GenerationRow generation)
     {
         switch (generation)
@@ -56,6 +60,8 @@ public class PlayerBoard
             default:
                 throw new ArgumentOutOfRangeException(nameof(generation), generation, null);
         }
+        BoardView().RemoveRow(Player, generation);
+
     }
 
     public bool HasObjectiveCondition(ObjectiveCard card)

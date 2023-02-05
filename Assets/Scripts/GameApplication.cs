@@ -25,11 +25,11 @@ public class GameApplication : MonoBehaviour
 
     void Start()
     {
-        _player = new Player()
+        _player = new Player(false)
         {
             PlayerHand = new PlayerHand()
         };
-        _npc = new Player()
+        _npc = new Player(true)
         {
             PlayerHand = new PlayerHand()
         };

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Cards.Drag
 {
-    internal class SnappeableSlot : MonoBehaviour
+    public class SnappeableSlot : MonoBehaviour
     {
         public SpriteRenderer drawRenderer;
         public SpriteRenderer frameRenderer;
@@ -23,13 +23,8 @@ namespace Cards.Drag
             name.text = string.Empty;
             HideHovering();
         }
-
-        public void SnapCard(Card cardData)
-        {
-            ShowCard(cardData);
-        }
-
-        private void ShowCard(Card card)
+        
+        public void ShowCard(Card card)
         {
             HideHovering();
             drawRenderer.sprite = card.Drawing;

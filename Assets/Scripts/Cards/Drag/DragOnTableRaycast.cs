@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -56,11 +55,8 @@ namespace Cards.Drag
         {
             slot.OnOvering();
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                slot.SnapCard(cardData);
+            if (Input.GetMouseButtonUp(0)) 
                 stopDragging(slot.Generation);
-            }
         }
     }
 }
