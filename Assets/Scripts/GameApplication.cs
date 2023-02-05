@@ -145,7 +145,7 @@ public class GameApplication : MonoBehaviour
 public class HasShield
 {
     public bool Execute(PlayerHand playerHand) =>
-        playerHand.Cards.Exists(x => x.GetType() == typeof(ShieldCard));
+        playerHand.Cards.Exists(x => x.Name.ToLowerInvariant()== "anulo mufa");
 }
 
 public class GetPlayerFromTurn
