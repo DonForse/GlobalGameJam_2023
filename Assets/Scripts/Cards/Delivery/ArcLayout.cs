@@ -64,14 +64,14 @@ namespace Features.Common.Utilities
 
                 rectChildren[i].position =
                     new Vector3(rectChildren[i].position.x,
-                        this.transform.position.y + height,
+                        this.transform.position.y + height+ pivot.y,
                         rectChildren[i].position.z);
             }
 
             height = spreadHeight;
             rectChildren[halfChild].position =
                 new Vector3(rectChildren[halfChild].position.x,
-                    this.transform.position.y + height,
+                    this.transform.position.y + height+ pivot.y,
                     rectChildren[halfChild].position.z);
 
             for (var i = halfChild + 1; i < rectChildren.Count; i++)
@@ -79,7 +79,7 @@ namespace Features.Common.Utilities
                 height = spreadHeight - ((i - halfChild) / (float)halfChild) * spreadHeight;
                 rectChildren[i].position =
                     new Vector3(rectChildren[i].position.x,
-                        this.transform.position.y + height,
+                        this.transform.position.y + height+ pivot.y,
                         rectChildren[i].position.z);
             }
         }
@@ -94,7 +94,7 @@ namespace Features.Common.Utilities
                 
                 rectChildren[i].position =
                     new Vector3(rectChildren[i].position.x,
-                        this.transform.position.y + height,
+                        this.transform.position.y + height+ pivot.y,
                         rectChildren[i].position.z);
             }
 
@@ -103,7 +103,7 @@ namespace Features.Common.Utilities
                 height = spreadHeight - ((i-halfChild) / (float)halfChild) * spreadHeight;
                 rectChildren[i].position =
                     new Vector3(rectChildren[i].position.x,
-                        this.transform.position.y + height,
+                        this.transform.position.y + height + pivot.y,
                         rectChildren[i].position.z);
             }
         }
