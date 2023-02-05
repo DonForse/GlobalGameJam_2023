@@ -15,13 +15,21 @@ public class ShieldStrategy : IPlayCardStrategy
 
     public bool CanPlay(Card card, Player player)
     {
-        return false;
-        // if (objectiveCard.GrandParents)
+        return EstaEnSabotageService.Get();
     }
 
     public void Execute(Card card, Player player, GenerationRow row)
     {
         _discardCard.Execute(card);
         Debug.Log("shield card completed");
+    }
+}
+
+public static class EstaEnSabotageService
+{
+    public static bool Sabotage = false; 
+    public static bool Get()
+    {
+        return Sabotage;
     }
 }

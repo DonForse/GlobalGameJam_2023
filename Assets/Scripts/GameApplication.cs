@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Actions;
 using Cards.Drag;
 using Game;
@@ -119,6 +120,22 @@ public class GameApplication : MonoBehaviour
 
     private void OnShield(Action<bool> callBack)
     {
+        EstaEnSabotageService.Sabotage = true;
+        //esto hace el bot
+        if (_turnService.GetTurn() == PlayerEnum.Player)
+        {
+            if (_hasShield.Execute(_npc.PlayerHand))
+            {
+                _playCard.Execute(_npc.PlayerHand.Cards.First(x=>x.Name.ToLowerInvariant() == "anulo mufa"),
+                    _npc, GenerationRow.Board);
+                callBack(true);
+                return;
+            }
+
+            callBack(false);
+            return;
+        }
+
         if (_hasShield.Execute(_player.PlayerHand))
             shieldView.OnShieldCalled(_playCard, _player, callBack);
         else

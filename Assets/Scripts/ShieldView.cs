@@ -15,20 +15,18 @@ public class ShieldView : MonoBehaviour
         {
             Hide();
             callBack(true);
-            playCard.Execute(GetAShieldCard(player), player, GenerationRow.None);
-            //yesButton.onClick.RemoveAllListeners();
+            playCard.Execute(GetAShieldCard(player), player, GenerationRow.Board);
         });
         noButton.onClick.AddListener(() =>
         {
             Hide();
             callBack(false);
-            //yesButton.onClick.RemoveAllListeners();
         });
     }
 
     private static Card GetAShieldCard(Player player)
     {
-        return player.PlayerHand.GetCard(typeof(ShieldCard));
+        return player.PlayerHand.GetShieldCard();
     }
 
     private void Show() => gameObject.SetActive(true);
