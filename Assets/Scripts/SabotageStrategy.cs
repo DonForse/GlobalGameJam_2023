@@ -24,7 +24,8 @@ public class SabotageStrategy : IPlayCardStrategy
     {
         _isShieldUsed(result =>
         {
-            if (result) _gameBoard.RemoveAllCardsFromOpponent(player, row);
+            if (!result)
+                _gameBoard.RemoveAllCardsFromOpponent(player, row);
         });
         _discardCard.Execute(card);
         Debug.Log("Sabotage completed");
