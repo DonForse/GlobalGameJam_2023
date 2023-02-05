@@ -1,9 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Actions
+public class SfxManager : MonoBehaviour
 {
-    public class SfxManager : MonoBehaviour
-    {
-        
-    }
+    public AudioSource AudioSource;
+
+    public List<AudioClip>
+        DrawCardClips,
+        PlayCardClips,
+        ErrorClips;
+
+    public AudioClip 
+        trapClip,
+        trophieClip;
 }
