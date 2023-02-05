@@ -35,19 +35,9 @@ public class GameView : MonoBehaviour
         for (int i = 0; i < 20000; i++)
         {
             var spawned = Instantiate(this.cardPrefab, spawnPosition);
-            var x = Random.Range(-3f, 3f);
+            var x = Random.Range(-1.5f, 1.5f);
             var y = Random.Range(-0.5f, 0.5f);
-            var z = Random.Range(-3f, 3f);
-            spawned.transform.localPosition += new Vector3(x, y, z);
-            spawned.transform.localRotation = new Quaternion(Random.Range(0, 150), Random.Range(0, 150),
-                Random.Range(0, 150), Random.Range(0, 150));
-
-            spawned.SetSprite(Sprites[Random.Range(0,length)]);
-            
-            spawned = Instantiate(this.cardPrefab, spawnPosition);
-            x = Random.Range(-0.5f, 0.5f);
-            y = Random.Range(-0.5f, 0.5f);
-            z = Random.Range(-0.5f, 0.5f);
+            var z = Random.Range(-1.5f, 1.5f);
             spawned.transform.localPosition += new Vector3(x, y, z);
             spawned.transform.localRotation = new Quaternion(Random.Range(0, 150), Random.Range(0, 150),
                 Random.Range(0, 150), Random.Range(0, 150));

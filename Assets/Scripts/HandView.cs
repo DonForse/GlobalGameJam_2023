@@ -62,14 +62,11 @@ public class HandView : MonoBehaviour
 
     public void Show()
     {
-        Debug.LogWarning("Show");
         this.cardsContainer.gameObject.SetActive(true);
     }
 
     private void Hide()
-    {
-        
-        Debug.LogWarning("Hide");
+    { 
         this.cardsContainer.gameObject.SetActive(false);
     }
 
