@@ -24,4 +24,12 @@ public class BoardView : MonoBehaviour
         else
             opponentSide.RemoveRow(row);
     }
+
+    public void Remove(Player player, GenerationRow row)
+    {
+        if (!player.IsOpponent)
+            playerSide.RemoveCard(row);
+        else
+            opponentSide.RemoveCard(row);
+    }
 }

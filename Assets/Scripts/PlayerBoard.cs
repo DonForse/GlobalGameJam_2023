@@ -75,6 +75,8 @@ public class PlayerBoard
         for (int i = 0; i < card.Childs; i++)
         {
             ChildRow.RemoveAt(0);
+            BoardView().Remove(Player, GenerationRow.Child);
+
         }
         for (int i = 0; i < card.Parents; i++)
         {
