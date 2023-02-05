@@ -6,9 +6,9 @@ public class GameApplication : MonoBehaviour
 {
     [SerializeField] private CardRepositoryScriptableObject cardsRepo;
     [SerializeField] private HandView _handView;
+    [SerializeField] private GameView gameView;
     private AddDiscardPileToDeck _addDiscardPileToDeck;
     private DrawCard _drawCard;
-    private PlayerHand _playerHand;
     private ShuffleDeck _shuffleDeck;
     private Deck _deck;
     private DiscardPile _discardPile;
@@ -22,8 +22,14 @@ public class GameApplication : MonoBehaviour
     {
         _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
 
-        _player = new Player();
-        _npc = new Player();
+        _player = new Player()
+        {
+            PlayerHand = new PlayerHand()
+        };
+        _npc = new Player()
+        {
+            PlayerHand = new PlayerHand()
+        };
         
         _deck = new Deck(cardsRepo);
         _deck.Initialize();
@@ -31,7 +37,7 @@ public class GameApplication : MonoBehaviour
         _gameBoard = new GameBoard();
         _gameBoard.Initialize(_player, _npc);
 
-        _playerHand = new PlayerHand();
+        
         _shuffleDeck = new ShuffleDeck(_deck);
         _discardPile = new DiscardPile();
         _discardCard = new DiscardCard(_discardPile);
@@ -39,14 +45,28 @@ public class GameApplication : MonoBehaviour
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
         _playCard = new PlayCard(_gameBoard, _handView, _discardCard);
         
-        _shuffleDeck.Execute();
-        _drawCard.Execute(_playerHand);
-        _drawCard.Execute(_playerHand);
-        _drawCard.Execute(_playerHand);
-        _drawCard.Execute(_playerHand);
+        InitialGameSetUp();
 
-        foreach (var card in _playerHand.Cards)
+        foreach (var card in _player.PlayerHand.Cards)
             _handView.AddCard(card);
+        
+        gameView.ShowTurn(PlayerEnum.Player);
+    }
+
+    private void InitialGameSetUp()
+    {
+        _shuffleDeck.Execute();
+        _drawCard.Execute(_player);
+        _drawCard.Execute(_player);
+        _drawCard.Execute(_player);
+        _drawCard.Execute(_player);
+        _drawCard.Execute(_player);
+
+        _drawCard.Execute(_npc);
+        _drawCard.Execute(_npc);
+        _drawCard.Execute(_npc);
+        _drawCard.Execute(_npc);
+        _drawCard.Execute(_npc);
     }
 
     private void CardStartDrag(OverlayCardView selectedCard)
@@ -59,6 +79,6 @@ public class GameApplication : MonoBehaviour
     {
         Debug.Log($"End card drag {selectedCard.name}");
         var card = cardsRepo.GetFromId(selectedCard.name);
-        _playCard.Execute(card, _player, _playerHand, generationRow);
+        _playCard.Execute(card, _player, generationRow);
     }
 }

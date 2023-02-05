@@ -19,13 +19,12 @@ public class PlayCard
 
     public void Execute(Card selectedCard, 
         Player player,
-        PlayerHand hand,
         GenerationRow rowSelected)
     {
         if (rowSelected == GenerationRow.None)
             return;
 
-        RemoveCardFromHand(selectedCard, hand);
+        RemoveCardFromHand(selectedCard, player.PlayerHand);
         _handView.RemoveCard(selectedCard);
         foreach (var strategy in _playCardStrategies
                      .Where(strategy => strategy.Is(selectedCard) 
