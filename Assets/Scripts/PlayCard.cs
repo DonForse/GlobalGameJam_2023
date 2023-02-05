@@ -30,11 +30,11 @@ public class PlayCard
         if (rowSelected == GenerationRow.None)
             return false;
 
-        RemoveCardFromHand(selectedCard, player.PlayerHand);
         foreach (var strategy in _playCardStrategies
                      .Where(strategy => strategy.Is(selectedCard)
                                         && strategy.CanPlay(selectedCard, player)))
         {
+            RemoveCardFromHand(selectedCard, player.PlayerHand);
             strategy.Execute(selectedCard, player, rowSelected);
             OnCardPlayed?.Invoke();
             return true;

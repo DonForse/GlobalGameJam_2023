@@ -19,6 +19,7 @@ public class PlayerBoard
     public PlayerBoard(Player player, DiscardCard discardCard)
     {
         Player = player;
+        _discardCard = discardCard;
     }
 
     public void Add(Card card, GenerationRow row)
@@ -76,7 +77,7 @@ public class PlayerBoard
     public bool HasObjectiveCondition(ObjectiveCard card)
     {
         return (ChildRow.Count >= card.Children && ParentRow.Count >= card.Parents &&
-                GrandParentRow.Count > card.GrandParents);
+                GrandParentRow.Count >= card.GrandParents);
     }
 
     public void RemoveCards(ObjectiveCard card)
