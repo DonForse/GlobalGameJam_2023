@@ -22,11 +22,11 @@ public class GameApplication : MonoBehaviour
     private HasShield _hasShield;
     private ShowPromptToUseShield _showPromptToUseShield;
     private ShieldView _shieldView;
+    private TurnService _turnService;
+    private BotService _botService;
 
     void Start()
     {
-        _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
-
         _player = new Player()
         {
             PlayerHand = new PlayerHand()
@@ -35,14 +35,12 @@ public class GameApplication : MonoBehaviour
         {
             PlayerHand = new PlayerHand()
         };
-        
+
         _deck = new Deck(cardsRepo);
         _deck.Initialize();
 
         _gameBoard = new GameBoard();
         _gameBoard.Initialize(_player, _npc);
-
-        
         _shuffleDeck = new ShuffleDeck(_deck);
         _discardPile = new DiscardPile();
         _discardCard = new DiscardCard(_discardPile);
@@ -50,14 +48,21 @@ public class GameApplication : MonoBehaviour
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
         _hasShield = new HasShield();
         _showPromptToUseShield = new ShowPromptToUseShield();
-        _playCard = new PlayCard(_gameBoard, _handView, _discardCard, OnShield);
+        _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
+        _turnService = new TurnService(gameView, _playCard);
+        _botService = new BotService(_turnService);
+        _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
+        _handView = _handView.WithTurnService(_turnService);
         
         InitialGameSetUp();
+        AddHandCardsVisually();
+        _turnService.StartTurn(PlayerEnum.Player);
+    }
 
+    private void AddHandCardsVisually()
+    {
         foreach (var card in _player.PlayerHand.Cards)
             _handView.AddCard(card);
-        
-        gameView.ShowTurn(PlayerEnum.Player);
     }
 
     private void InitialGameSetUp()

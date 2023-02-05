@@ -5,9 +5,6 @@ using Cards;
 public class GameBoard
 {
     private List<PlayerBoard> playerBoards = new();
-    private int turn = 0;
-    private PlayerEnum playerTurn = PlayerEnum.Player;
-    
     public void Initialize(Player player, Player npc)
     {
         playerBoards.Add(new PlayerBoard(player));

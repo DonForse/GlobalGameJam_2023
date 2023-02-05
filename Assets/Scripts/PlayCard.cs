@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Actions;
-using UnityEngine;
 
 public class PlayCard
 {
-    private HandView _handView;
+    public event EventHandler OnCardPlayed;
     private readonly List<IPlayCardStrategy> _playCardStrategies;
 
+
     public PlayCard(GameBoard gameBoard,
-        HandView handView,
         DiscardCard discardCard,
         Action<Action<bool>> isShieldUsed)
     {
-        _handView = handView;
         _playCardStrategies = new List<IPlayCardStrategy>
         {
             new FamilyMemberStrategy(gameBoard),
@@ -30,11 +28,13 @@ public class PlayCard
             return;
 
         RemoveCardFromHand(selectedCard, player.PlayerHand);
-        _handView.RemoveCard(selectedCard);
         foreach (var strategy in _playCardStrategies
-                     .Where(strategy => strategy.Is(selectedCard) 
-                        && strategy.CanPlay(selectedCard, player)))
+                     .Where(strategy => strategy.Is(selectedCard)
+                                        && strategy.CanPlay(selectedCard, player)))
+        {
             strategy.Execute(selectedCard, player, rowSelected);
+            OnCardPlayed?.Invoke(null, null);
+        }
     }
 
     private static void RemoveCardFromHand(Card selectedCard, PlayerHand hand)

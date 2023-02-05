@@ -9,12 +9,19 @@ public class HandView : MonoBehaviour
     private Action<OverlayCardView> _onDragOverlayCardStart;
     private Action<OverlayCardView> _onDragOverlayCardEnd;
 
-    private List<OverlayCardView> _cardViews = new List<OverlayCardView>();
+    private List<OverlayCardView> _cardViews = new();
+    private TurnService _turnService;
 
     public HandView WithOnCardSelected(Action<OverlayCardView> onDragStart, Action<OverlayCardView> onDragEnd)
     {
         _onDragOverlayCardStart = onDragStart;
         _onDragOverlayCardEnd = onDragEnd;
+        return this;
+    }
+
+    public HandView WithTurnService(TurnService turnService)
+    {
+        _turnService = turnService;
         return this;
     }
 
@@ -28,13 +35,17 @@ public class HandView : MonoBehaviour
 
     private void OnOverlayCardStartDrag(OverlayCardView selectedCard)
     {
+        if (_turnService.GetTurn() != PlayerEnum.Player)
+            return;
         var pos = this.cardsContainer.transform.position;
         this.cardsContainer.transform.position = new Vector3(pos.x, pos.y - 1000, pos.z);
         _onDragOverlayCardStart.Invoke(selectedCard);
     }
-    
+
     private void OnOverlayCardEndDrag(OverlayCardView selectedCard)
     {
+        if (_turnService.GetTurn() != PlayerEnum.Player)
+            return;
         var pos = this.cardsContainer.transform.position;
         this.cardsContainer.transform.position = new Vector3(pos.x, pos.y + 1000, pos.z);
         _onDragOverlayCardEnd.Invoke(selectedCard);
