@@ -15,7 +15,7 @@ public class OverlayCardView : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public void Setup(Sprite sprite, string name)
     {
         cardImage.sprite = sprite;
-        // this.cardName.text = name;
+        cardName.text = name;
         this.name = name;
         CardId = name;
     }
