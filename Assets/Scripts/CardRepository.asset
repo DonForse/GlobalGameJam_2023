@@ -23,8 +23,8 @@ MonoBehaviour:
     Drawing: {fileID: 21300000, guid: 5e232ff8661419a4980cb3a789fcb7eb, type: 3}
     DeckInitialAmount: 8
   SabotageCards:
-  - Name: Tu viejo
-    Drawing: {fileID: 21300000, guid: 387c1dd07929ff9418ab1a33cfe55bdf, type: 3}
+  - Name: Trapitos al Sol
+    Drawing: {fileID: 21300000, guid: b0dbb577f038f58499d88c4e98a0aa82, type: 3}
     DeckInitialAmount: 1
   ShieldCards:
   - Name: Anulo Mufa
