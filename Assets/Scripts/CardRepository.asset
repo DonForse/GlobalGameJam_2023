@@ -14,28 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FamilyMemberCards:
   - Name: Tu vieja
-    Drawing: {fileID: 21300000, guid: 8c7e05715ecdabd4eb3a62917f24db1f, type: 3}
-    DeckInitialAmount: 20
+    Drawing: {fileID: 21300000, guid: f09290f9182a78645946e56671006f3d, type: 3}
+    DeckInitialAmount: 8
+  - Name: Tu vieja
+    Drawing: {fileID: 21300000, guid: f81cd02b151d46246b185860006e9aa3, type: 3}
+    DeckInitialAmount: 8
+  - Name: Tu vieja
+    Drawing: {fileID: 21300000, guid: 5e232ff8661419a4980cb3a789fcb7eb, type: 3}
+    DeckInitialAmount: 8
   SabotageCards:
   - Name: Tu viejo
     Drawing: {fileID: 21300000, guid: 387c1dd07929ff9418ab1a33cfe55bdf, type: 3}
     DeckInitialAmount: 1
   ShieldCards:
-  - Name: Mi vieja
-    Drawing: {fileID: 21300000, guid: f019f551ea563574ba83813284b67ec0, type: 3}
-    DeckInitialAmount: 1
-  PrincipalOjectiveCards:
-  - Name: Alguna vieja
-    Drawing: {fileID: 21300000, guid: 2e566e1e50d3d8b4e92e6d5daf6e5636, type: 3}
-    DeckInitialAmount: 1
-    GrandParents: 0
-    Parents: 0
-    Childs: 0
+  - Name: Anulo Mufa
+    Drawing: {fileID: 21300000, guid: 12f2fa9fbfbb2ad48b3e4d0929626ad9, type: 3}
+    DeckInitialAmount: 3
   DeckObjectiveCard:
-  - Name: La vieja del otro
-    Drawing: {fileID: 21300000, guid: a38b3aabdc55ef54c8e23bca838ab1eb, type: 3}
-    DeckInitialAmount: 1
-    GrandParents: 0
+  - Name: AbuelaLALALA
+    Drawing: {fileID: 21300000, guid: 80b92dd492fca5e4e9d04a4bb2e20c1f, type: 3}
+    DeckInitialAmount: 2
+    GrandParents: 1
     Parents: 0
-    Childs: 0
+    Childs: 5
   CardFrame: {fileID: 21300000, guid: 6b355c977868d47588ca9405d02a7649, type: 3}

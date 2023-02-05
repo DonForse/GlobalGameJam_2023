@@ -1,6 +1,6 @@
 ﻿public class FamilyMemberStrategy: IPlayCardStrategy
 {
-    private GameBoard _gameBoard;
+    private readonly GameBoard _gameBoard;
 
     public FamilyMemberStrategy(GameBoard gameBoard)
     {
