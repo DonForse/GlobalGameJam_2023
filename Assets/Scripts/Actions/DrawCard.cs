@@ -17,6 +17,7 @@
                 _addDiscardPileToDeck.Execute();
             var card = _deck.Cards.Pop();
             player.PlayerHand.Cards.Add(card);
+            SfxManager.DrawCard();
             return card;
         }
     }

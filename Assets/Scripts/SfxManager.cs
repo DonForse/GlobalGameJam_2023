@@ -38,4 +38,12 @@ public class SfxManager : MonoBehaviour
     }
 
     private AudioClip PickRandomClipFrom(AudioClip[] clips) => clips[Random.Range(0, clips.Length)];
+
+    public static void DrawCard() => Instance.PlayDrawCard();
+
+    private void PlayDrawCard()
+    {
+        var clip = PickRandomClipFrom(DrawCardClips);
+        AudioSource.PlayOneShot(clip);
+    }
 }
