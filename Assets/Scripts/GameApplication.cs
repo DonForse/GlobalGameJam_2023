@@ -8,6 +8,7 @@ public class GameApplication : MonoBehaviour
     [SerializeField] private CardRepositoryScriptableObject cardsRepo;
     [SerializeField] private HandView _handView;
     [SerializeField] private GameView gameView;
+    [SerializeField] private BotService _botService;
     [SerializeField] private ShieldView shieldView;
     private AddDiscardPileToDeck _addDiscardPileToDeck;
     private DrawCard _drawCard;
@@ -21,7 +22,6 @@ public class GameApplication : MonoBehaviour
     private DiscardCard _discardCard;
     private HasShield _hasShield;
     private TurnService _turnService;
-    private BotService _botService;
 
     void Start()
     {
@@ -48,7 +48,7 @@ public class GameApplication : MonoBehaviour
         new ShowPromptToUseShield();
         _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
         _turnService = new TurnService(gameView, _playCard);
-        _botService = new BotService(_turnService);
+        _botService = _botService.With(_turnService, _playCard, _npc);
         _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
         _handView = _handView.WithTurnService(_turnService);
         

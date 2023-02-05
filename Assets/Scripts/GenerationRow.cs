@@ -1,8 +1,8 @@
-﻿public enum GenerationRow
+﻿public enum GenerationRow : int
 {
-    None,
-    Child,
-    Parent,
-    GrandParent,
-    Board
+    Child= 0,
+    Parent = 1,
+    GrandParent = 2,
+    Board = 4,
+    None = 5,
 }
