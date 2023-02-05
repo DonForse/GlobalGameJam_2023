@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Actions;
 
 public class PlayCard
 {
+    public delegate CardPlayedDelegate CardPlayedDelegate();
+    public event EventHandler OnCardPlayed;
+
     private HandView _handView;
+
     private readonly List<IPlayCardStrategy> _playCardStrategies;
+
 
     public PlayCard(GameBoard gameBoard, HandView handView, DiscardCard discardCard)
     {
@@ -27,9 +33,12 @@ public class PlayCard
         RemoveCardFromHand(selectedCard, player.PlayerHand);
         _handView.RemoveCard(selectedCard);
         foreach (var strategy in _playCardStrategies
-                     .Where(strategy => strategy.Is(selectedCard) 
-                        && strategy.CanPlay(selectedCard, player)))
+                     .Where(strategy => strategy.Is(selectedCard)
+                                        && strategy.CanPlay(selectedCard, player)))
+        {
             strategy.Execute(selectedCard, player, rowSelected);
+            OnCardPlayed?.Invoke(null, null);
+        }
     }
 
     private static void RemoveCardFromHand(Card selectedCard, PlayerHand hand)

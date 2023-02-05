@@ -17,11 +17,11 @@ public class GameApplication : MonoBehaviour
     private Player _player;
     private Player _npc;
     private DiscardCard _discardCard;
+    private TurnService _turnService;
+    private BotService _botService;
 
     void Start()
     {
-        _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
-
         _player = new Player()
         {
             PlayerHand = new PlayerHand()
@@ -30,27 +30,32 @@ public class GameApplication : MonoBehaviour
         {
             PlayerHand = new PlayerHand()
         };
-        
+
         _deck = new Deck(cardsRepo);
         _deck.Initialize();
 
         _gameBoard = new GameBoard();
         _gameBoard.Initialize(_player, _npc);
-
-        
         _shuffleDeck = new ShuffleDeck(_deck);
         _discardPile = new DiscardPile();
         _discardCard = new DiscardCard(_discardPile);
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
         _playCard = new PlayCard(_gameBoard, _handView, _discardCard);
+        _turnService = new TurnService(gameView, _playCard);
+        _botService = new BotService(_turnService);
+        _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
+        _handView = _handView.WithTurnService(_turnService);
         
         InitialGameSetUp();
+        AddHandCardsVisually();
+        _turnService.StartTurn(PlayerEnum.Player);
+    }
 
+    private void AddHandCardsVisually()
+    {
         foreach (var card in _player.PlayerHand.Cards)
             _handView.AddCard(card);
-        
-        gameView.ShowTurn(PlayerEnum.Player);
     }
 
     private void InitialGameSetUp()
