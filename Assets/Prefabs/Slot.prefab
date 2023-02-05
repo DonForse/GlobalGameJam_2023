@@ -341,7 +341,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6523925273829430654}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -405,6 +405,9 @@ MonoBehaviour:
   frameRenderer: {fileID: 1800938130555996997}
   name: {fileID: 6855922844746499293}
   cardsRepository: {fileID: 11400000, guid: 1ad11b27e1afef0469156d799bb24806, type: 2}
+  hoveringRenderer: {fileID: 2295737703072047601}
+  notHoveringColor: {r: 0, g: 0, b: 0, a: 0}
+  hoveringColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.25490198}
 --- !u!1 &6759808104941704922
 GameObject:
   m_ObjectHideFlags: 0

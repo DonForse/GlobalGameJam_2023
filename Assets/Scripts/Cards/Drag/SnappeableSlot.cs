@@ -10,12 +10,17 @@ namespace Cards.Drag
         public SpriteRenderer frameRenderer;
         public TMP_Text name;
         public CardRepositoryScriptableObject cardsRepository;
+        
+        [Space, Header("Hover")]
+        public Renderer hoveringRenderer;
+        public Color hoveringColor = Color.yellow;
 
         private void Awake()
         {
             drawRenderer.sprite = null;
             frameRenderer.sprite = null;
             name.text = string.Empty;
+            HideHovering();
         }
 
         public void SnapCard(Card cardData)
@@ -25,14 +30,28 @@ namespace Cards.Drag
 
         private void ShowCard(Card card)
         {
+            HideHovering();
             drawRenderer.sprite = card.Drawing;
             frameRenderer.sprite = cardsRepository.CardFrame;
             name.text = card.Name;
         }
 
-        public void OnOvering()
+        public void OnOvering() => ShowOvering();
+
+        private void ShowOvering()
         {
-            Debug.Log("On being overed");
+            hoveringRenderer.enabled = true;
+            hoveringRenderer.material.color = hoveringColor;
+        }
+
+        private void HideHovering()
+        {
+            hoveringRenderer.enabled = false;
+        }
+
+        private void Update()
+        {
+            HideHovering();
         }
     }
 }
