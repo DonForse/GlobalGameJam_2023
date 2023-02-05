@@ -33,13 +33,12 @@ public class ObjectiveCardView: MonoBehaviour, IPointerDownHandler
 
     private void SetObjectives(IReadOnlyList<int> objectivesValues)
     {
-        ObjectiveText.text += "\n";
         if(HasRelative(objectivesValues[0]))
             AddFamiliar($"Grandparents: {objectivesValues[0]}\n");
         if(HasRelative(objectivesValues[1]))
             AddFamiliar($"Parents: {objectivesValues[1]}\n");
         if(HasRelative(objectivesValues[2]))
-            AddFamiliar($"Children: {objectivesValues[1]}." );
+            AddFamiliar($"Children: {objectivesValues[1]}" );
     }
 
     private void AddFamiliar(string relative) => ObjectiveText.text += relative;
