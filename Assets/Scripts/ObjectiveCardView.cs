@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,10 +9,19 @@ using UnityEngine.UI;
 public class ObjectiveCardView: MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private Image cardImage;
+    [SerializeField] private GameObject completed;
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private TMP_Text ObjectiveText;
 
     public string CardId;
+    private CanClaimTrophy _canClaimTrophy;
+    private ClaimTrophy _claimTrophy;
+
+    public void Init(CanClaimTrophy canClaimTrophy)
+    {
+        _canClaimTrophy = canClaimTrophy;
+    }
+
     public void Setup(Sprite sprite, string name, int[] objectiveValues)
     {
         cardImage.sprite = sprite;
@@ -38,8 +48,17 @@ public class ObjectiveCardView: MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log(eventData.button == PointerEventData.InputButton.Right
-            ? "Te muestro la carta más grande"
-            : "Click en el trofeo");
+        if (_canClaimTrophy.Execute(CardId))
+        {
+            _claimTrophy.Execute();
+            DeactivateCard();
+        }
+    }
+
+    private void DeactivateCard()
+    {
+        cardImage.raycastTarget = false;
+        ObjectiveText.raycastTarget = false;
+        completed.SetActive(true);
     }
 }

@@ -2,14 +2,18 @@
 using System.Linq;
 using Actions;
 using Cards;
+using Game;
 
 public class GameBoard
 {
     private List<PlayerBoard> playerBoards = new();
-    public void Initialize(Player player, Player npc, DiscardCard discardCard)
+    private ObjectiveDeck _principalObjectiveDeck;
+
+    public void Initialize(Player player, Player npc, DiscardCard discardCard, ObjectiveDeck principalObjectivesDeck)
     {
         playerBoards.Add(new PlayerBoard(player, discardCard));
         playerBoards.Add(new PlayerBoard(npc, discardCard));
+        _principalObjectiveDeck = principalObjectivesDeck;
     }
 
     public void AddCard(Card card, Player player, GenerationRow row)
@@ -42,10 +46,16 @@ public class GameBoard
         playerBoard.First().RemoveCards(card);
     }
 
-    public void AddPoint(Card card, Player player)
+    public void AddPoint(Player player)
     {
         var playerBoard = FindPlayerBoardByPlayer(player).First();
-
         playerBoard.AddTrophy();
+    }
+
+    public bool CanClaimTrophy(string cardId, Player player)
+    {
+        var playerBoard = FindPlayerBoardByPlayer(player);
+        var principalObjectiveCard = _principalObjectiveDeck.Cards.First(x => x.Name == cardId);
+        return playerBoard.Any(x => x.HasObjectiveCondition(principalObjectiveCard));
     }
 }

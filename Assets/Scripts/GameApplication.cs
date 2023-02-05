@@ -26,6 +26,9 @@ public class GameApplication : MonoBehaviour
     private DiscardCard _discardCard;
     private HasShield _hasShield;
     private TurnService _turnService;
+    private CanClaimTrophy _canClaimTrophy;
+    private GetPlayerFromTurn _getPlayerFromTurn;
+    private ClaimTrophy _claimTrophy;
 
     void Start()
     {
@@ -53,12 +56,14 @@ public class GameApplication : MonoBehaviour
         _hasShield = new HasShield();
         _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
         _turnService = new TurnService(gameView, _playCard);
+        _getPlayerFromTurn = new GetPlayerFromTurn(_turnService, _player, _npc);
+        _canClaimTrophy = new CanClaimTrophy(_gameBoard, _getPlayerFromTurn);
+        _claimTrophy = new ClaimTrophy(_gameBoard, _getPlayerFromTurn);
         _botService = _botService.With(_turnService, _playCard, _npc);
 
-        _gameBoard.Initialize(_player, _npc, _discardCard);
+        _gameBoard.Initialize(_player, _npc, _discardCard, _principalObjectivesDeck);
         _handView = _handView.WithTurnService(_turnService);
         _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
-        
         InitialGameSetUp();
         AddHandCardsVisually();
         AddPrincipalObjectiveCardsVisually();
@@ -83,10 +88,8 @@ public class GameApplication : MonoBehaviour
     }
     
 
-    private void AddPrincipalObjectiveCardsVisually()
-    {
-        _principalObjectivesCardsView.AddCards(_principalObjectivesDeck);
-    }
+    private void AddPrincipalObjectiveCardsVisually() => 
+        _principalObjectivesCardsView.Init(_principalObjectivesDeck, _canClaimTrophy);
 
     private void AddHandCardsVisually()
     {
@@ -137,4 +140,38 @@ public class HasShield
 {
     public bool Execute(PlayerHand playerHand) => 
         playerHand.Cards.Exists(x => x.GetType() == typeof(ShieldCard));
+}
+
+public class GetPlayerFromTurn
+{
+    private readonly TurnService _turnService;
+    private readonly Player _player;
+    private readonly Player _npc;
+
+    public GetPlayerFromTurn(TurnService turnService, Player player, Player npc)
+    {
+        _turnService = turnService;
+        _player = player;
+        _npc = npc;
+    }
+
+    public Player Execute() => _turnService.GetTurn() == PlayerEnum.Player ? _player : _npc;
+}
+
+public class ClaimTrophy
+{
+    private readonly GameBoard _gameBoard;
+    private readonly GetPlayerFromTurn _getPlayerFromTurn;
+
+    public ClaimTrophy(GameBoard gameBoard, GetPlayerFromTurn getPlayerFromTurn)
+    {
+        _gameBoard = gameBoard;
+        _getPlayerFromTurn = getPlayerFromTurn;
+    }
+
+    public void Execute()
+    {
+        var player = _getPlayerFromTurn.Execute();
+        _gameBoard.AddPoint(player);
+    }
 }

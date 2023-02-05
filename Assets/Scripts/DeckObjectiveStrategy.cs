@@ -20,6 +20,6 @@ public class DeckObjectiveStrategy : IPlayCardStrategy
     public void Execute(Card card, Player player, GenerationRow row)
     {
         _gameBoard.CompleteObjectiveCard((ObjectiveCard)card, player);
-        _gameBoard.AddPoint(card, player);
+        _gameBoard.AddPoint(player);
     }
 }
