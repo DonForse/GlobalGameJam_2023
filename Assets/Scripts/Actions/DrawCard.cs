@@ -11,12 +11,12 @@
             _addDiscardPileToDeck = addDiscardPileToDeck;
         }
 
-        public void Execute(PlayerHand hand)
+        public void Execute(Player player)
         {
             if (_deck.Cards.Count == 0)
                 _addDiscardPileToDeck.Execute();
             var card = _deck.Cards.Pop();
-            hand.Cards.Add(card);
+            player.PlayerHand.Cards.Add(card);
         }
     }
 }

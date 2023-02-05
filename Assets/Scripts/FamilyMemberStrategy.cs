@@ -8,6 +8,7 @@
     }
 
     public bool Is(Card card) => card.GetType() == typeof(FamilyMemberCard);
+    public bool CanPlay(Card card, Player player) => true;
 
     public void Execute(Card card, Player player, GenerationRow row)
     {

@@ -4,5 +4,5 @@
     Child,
     Parent,
     GrandParent,
-    
+    Board
 }

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cards;
 
 public class GameBoard
 {
     private List<PlayerBoard> playerBoards = new();
-
+    private int turn = 0;
+    private PlayerEnum playerTurn = PlayerEnum.Player;
+    
     public void Initialize(Player player, Player npc)
     {
         playerBoards.Add(new PlayerBoard(player));
@@ -28,4 +31,23 @@ public class GameBoard
 
     private IEnumerable<PlayerBoard> FindGameBoardFromOpponentPlayer(Player player) => 
         playerBoards.Where(playerBoard => playerBoard.Player != player);
+
+    public bool HasCardObjective(Player player, ObjectiveCard card)
+    {
+       var playerBoard = FindPlayerBoardByPlayer(player);
+       return playerBoard.First().HasObjectiveCondition(card);
+    }
+
+    public void CompleteObjectiveCard(ObjectiveCard card, Player player)
+    {
+        var playerBoard = FindPlayerBoardByPlayer(player);
+        playerBoard.First().RemoveCards(card);
+    }
+
+    public void AddPoint(Card card, Player player)
+    {
+        var playerBoard = FindPlayerBoardByPlayer(player);
+
+        playerBoard.First().PlayerPoints += 1;
+    }
 }
