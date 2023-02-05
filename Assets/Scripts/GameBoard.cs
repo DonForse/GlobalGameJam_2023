@@ -43,8 +43,8 @@ public class GameBoard
 
     public void AddPoint(Card card, Player player)
     {
-        var playerBoard = FindPlayerBoardByPlayer(player);
+        var playerBoard = FindPlayerBoardByPlayer(player).First();
 
-        playerBoard.First().PlayerPoints += 1;
+        playerBoard.AddTrophy();
     }
 }

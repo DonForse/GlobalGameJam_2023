@@ -7,10 +7,12 @@ public class PlayerBoard
 {
     public Player Player;
     public int PlayerPoints;
-    
+
     private List<Card> ChildRow = new();
     private List<Card> ParentRow= new();
     private List<Card> GrandParentRow= new();
+
+    private static BoardView BoardView() => GameObject.FindObjectOfType<BoardView>();
 
     public PlayerBoard(Player player)
     {
@@ -39,8 +41,6 @@ public class PlayerBoard
 
         BoardView().AddCard(Player, card, row);
     }
-
-    private static BoardView BoardView() => GameObject.FindObjectOfType<BoardView>();
 
     public void RemoveCardFromRow(GenerationRow generation)
     {
@@ -84,5 +84,11 @@ public class PlayerBoard
         {
             GrandParentRow.RemoveAt(0);
         }
+    }
+
+    public void AddTrophy()
+    {
+        PlayerPoints += 1;
+        BoardView().AddTrophy();
     }
 }

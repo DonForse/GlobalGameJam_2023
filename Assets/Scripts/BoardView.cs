@@ -8,10 +8,6 @@ public class BoardView : MonoBehaviour
     public void AddTrophy()
     {
     }
-    
-    public void RemoveCard()
-    {
-    }
 
     public void AddCard(Player player, Card card, GenerationRow row)
     {
