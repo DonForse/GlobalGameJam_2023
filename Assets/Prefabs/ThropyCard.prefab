@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 2094395325646089220}
-  completed: {fileID: 0}
+  completed: {fileID: 2591421552311347146}
   cardName: {fileID: 0}
   ObjectiveText: {fileID: 3142689709335070286}
   CardId: Tu vieja

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18048581, g: 0.22595704, b: 0.30703744, a: 1}
+  m_IndirectSpecularColor: {r: 0.18048619, g: 0.2259574, b: 0.30703798, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -47852,9 +47852,17 @@ MonoBehaviour:
   animator: {fileID: 1076280184}
   turnText: {fileID: 1821047702}
   startTurnBackground: {fileID: 462245698}
-  Sprites: []
-  cardPrefab: {fileID: 0}
-  spawnPosition: {fileID: 0}
+  Sprites:
+  - {fileID: 21300000, guid: 29d67d3ead6c244ef9637a4186b74061, type: 3}
+  - {fileID: 21300000, guid: cbb344bd1dbfb46ddaf2b973edcefc41, type: 3}
+  - {fileID: 21300000, guid: ac21d96a8ec4844e9a81ce426aee6796, type: 3}
+  - {fileID: 21300000, guid: 4f8da620c307949cfb502c79780ee02a, type: 3}
+  - {fileID: 21300000, guid: 769db025290c24ab2a542370783f070c, type: 3}
+  - {fileID: 21300000, guid: 991814603e72241f7954d133693806b4, type: 3}
+  - {fileID: 21300000, guid: 5043e2a8ea92047a5a80865303627499, type: 3}
+  cardPrefab: {fileID: 2988745620131384688, guid: 93d16a8e7074f214aaa901904947ea70,
+    type: 3}
+  spawnPosition: {fileID: 867300586}
 --- !u!4 &1076280186
 Transform:
   m_ObjectHideFlags: 0

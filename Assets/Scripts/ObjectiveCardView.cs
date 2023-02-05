@@ -17,9 +17,10 @@ public class ObjectiveCardView: MonoBehaviour, IPointerDownHandler
     private CanClaimTrophy _canClaimTrophy;
     private ClaimTrophy _claimTrophy;
 
-    public void Init(CanClaimTrophy canClaimTrophy)
+    public void Init(CanClaimTrophy canClaimTrophy, ClaimTrophy claimTrophy)
     {
         _canClaimTrophy = canClaimTrophy;
+        _claimTrophy = claimTrophy;
     }
 
     public void Setup(Sprite sprite, string name, int[] objectiveValues)
