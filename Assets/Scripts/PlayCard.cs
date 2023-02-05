@@ -18,7 +18,8 @@ public class PlayCard
         {
             new FamilyMemberStrategy(gameBoard),
             new SabotageStrategy(gameBoard, discardCard, isShieldUsed),
-            new ShieldStrategy(discardCard)
+            new ShieldStrategy(discardCard),
+            new DeckObjectiveStrategy(gameBoard),
         };
     }
 
