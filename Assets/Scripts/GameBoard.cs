@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Actions;
 using Cards;
 
 public class GameBoard
 {
     private List<PlayerBoard> playerBoards = new();
-    public void Initialize(Player player, Player npc)
+    public void Initialize(Player player, Player npc, DiscardCard discardCard)
     {
-        playerBoards.Add(new PlayerBoard(player));
-        playerBoards.Add(new PlayerBoard(npc));
+        playerBoards.Add(new PlayerBoard(player, discardCard));
+        playerBoards.Add(new PlayerBoard(npc, discardCard));
     }
 
     public void AddCard(Card card, Player player, GenerationRow row)
