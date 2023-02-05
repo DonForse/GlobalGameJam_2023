@@ -75,13 +75,13 @@ public class PlayerBoard
 
     public bool HasObjectiveCondition(ObjectiveCard card)
     {
-        return (ChildRow.Count >= card.Childs && ParentRow.Count >= card.Parents &&
+        return (ChildRow.Count >= card.Children && ParentRow.Count >= card.Parents &&
                 GrandParentRow.Count > card.GrandParents);
     }
 
     public void RemoveCards(ObjectiveCard card)
     {
-        for (int i = 0; i < card.Childs; i++)
+        for (int i = 0; i < card.Children; i++)
         {
             _discardCard.Execute(ChildRow[0]);
             ChildRow.RemoveAt(0);

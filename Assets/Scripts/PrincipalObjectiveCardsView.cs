@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cards;
 using Game;
 using UnityEngine;
 
@@ -12,10 +13,11 @@ public class PrincipalObjectiveCardsView : MonoBehaviour
         foreach (var card in deck.Cards) AddCard(card);
     }
     
-    private void AddCard(Card card)
+    private void AddCard(ObjectiveCard card)
     {
         var go = Instantiate(objectiveCardViewPrefab, cardsContainer);
-        go.Setup(card.Drawing, card.Name);
+        var objectiveValues = new int[] { card.GrandParents, card.Parents, card.Children };
+        go.Setup(card.Drawing, card.Name, objectiveValues);
         _cardViews.Add(go);
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cards;
 
 namespace Game
 {
@@ -6,7 +7,7 @@ namespace Game
     {
         private readonly PrincipalObjectiveCardRepositoryScriptableObject _cardRepository;
 
-        public Stack<Card> Cards = new();
+        public Stack<ObjectiveCard> Cards = new();
 
         public ObjectiveDeck(PrincipalObjectiveCardRepositoryScriptableObject cardRepository)
         {
@@ -15,20 +16,24 @@ namespace Game
         public void Initialize() => AddCardsToDeck();
         private void AddCardsToDeck() => AddCardOfType(_cardRepository.PrincipalOjectiveCards);
 
-        private void AddCards(Card card) => AddACard(card);
+        private void AddCards(ObjectiveCard card) => AddACard(card);
 
-        public void AddACard(Card card)
+        public void AddACard(ObjectiveCard card)
         {
             for (int i = 0; i < card.DeckInitialAmount; i++)
-                Cards.Push(new Card
+                Cards.Push(new ObjectiveCard
                 {
                     Drawing = card.Drawing,
                     Name = card.Name,
-                    DeckInitialAmount = card.DeckInitialAmount
+                    DeckInitialAmount = card.DeckInitialAmount,
+                    GrandParents = card.GrandParents,
+                    Parents= card.Parents,
+                    Children = card.Children
+                    
                 });
         }
     
-        private void AddCardOfType(IEnumerable<Card> cards)
+        private void AddCardOfType(IEnumerable<ObjectiveCard> cards)
         {
             foreach (var card in cards) AddCards(card);
         }

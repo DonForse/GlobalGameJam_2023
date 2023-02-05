@@ -4,6 +4,6 @@
     {
         public int GrandParents;
         public int Parents;
-        public int Childs;
+        public int Children;
     }
 }
