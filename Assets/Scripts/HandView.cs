@@ -22,7 +22,16 @@ public class HandView : MonoBehaviour
     public HandView WithTurnService(TurnService turnService)
     {
         _turnService = turnService;
+        _turnService.OnTurnChange.AddListener(ToggleHand);
         return this;
+    }
+
+    private void ToggleHand(PlayerEnum turn)
+    {
+        if (PlayerEnum.Npc == turn)
+            Hide();
+        else
+            Show();
     }
 
     public void AddCard(Card card)
@@ -38,7 +47,7 @@ public class HandView : MonoBehaviour
         if (_turnService.GetTurn() != PlayerEnum.Player)
             return;
         var pos = this.cardsContainer.transform.position;
-        this.cardsContainer.transform.position = new Vector3(pos.x, pos.y - 1000, pos.z);
+        Hide();
         _onDragOverlayCardStart.Invoke(selectedCard);
     }
 
@@ -46,19 +55,31 @@ public class HandView : MonoBehaviour
     {
         if (_turnService.GetTurn() != PlayerEnum.Player)
             return;
-        var pos = this.cardsContainer.transform.position;
-        this.cardsContainer.transform.position = new Vector3(pos.x, pos.y + 1000, pos.z);
+        Show();
         _onDragOverlayCardEnd.Invoke(selectedCard);
+    }
 
+
+    public void Show()
+    {
+        Debug.LogWarning("Show");
+        this.cardsContainer.gameObject.SetActive(true);
+    }
+
+    private void Hide()
+    {
+        
+        Debug.LogWarning("Hide");
+        this.cardsContainer.gameObject.SetActive(false);
     }
 
     public void RemoveCard(Card selectedCard)
     {
-        OverlayCardView cardToRemove = null; 
+        OverlayCardView cardToRemove = null;
         foreach (var card in _cardViews)
         {
             if (card.CardId != selectedCard.Name) continue;
-            
+
             cardToRemove = card;
             break;
         }

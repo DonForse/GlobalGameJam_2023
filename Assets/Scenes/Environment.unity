@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18048581, g: 0.22595704, b: 0.30703744, a: 1}
+  m_IndirectSpecularColor: {r: 0.18048619, g: 0.2259574, b: 0.30703798, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37669,6 +37669,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 867262403}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &867300585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 867300586}
+  m_Layer: 0
+  m_Name: CardsSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &867300586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867300585}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1076280186}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &868449133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47791,6 +47822,17 @@ MonoBehaviour:
   animator: {fileID: 1076280184}
   turnText: {fileID: 1821047702}
   startTurnBackground: {fileID: 462245698}
+  Sprites:
+  - {fileID: 21300000, guid: 29d67d3ead6c244ef9637a4186b74061, type: 3}
+  - {fileID: 21300000, guid: cbb344bd1dbfb46ddaf2b973edcefc41, type: 3}
+  - {fileID: 21300000, guid: ac21d96a8ec4844e9a81ce426aee6796, type: 3}
+  - {fileID: 21300000, guid: 4f8da620c307949cfb502c79780ee02a, type: 3}
+  - {fileID: 21300000, guid: 769db025290c24ab2a542370783f070c, type: 3}
+  - {fileID: 21300000, guid: 991814603e72241f7954d133693806b4, type: 3}
+  - {fileID: 21300000, guid: 5043e2a8ea92047a5a80865303627499, type: 3}
+  cardPrefab: {fileID: 2988745620131384688, guid: 93d16a8e7074f214aaa901904947ea70,
+    type: 3}
+  spawnPosition: {fileID: 867300586}
 --- !u!4 &1076280186
 Transform:
   m_ObjectHideFlags: 0
@@ -47799,11 +47841,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076280183}
   m_LocalRotation: {x: -0, y: 0.7071037, z: -0, w: -0.7071098}
-  m_LocalPosition: {x: -21.271091, y: 263.318, z: 453.12115}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 912231221}
+  - {fileID: 867300586}
   m_Father: {fileID: 1346829142}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

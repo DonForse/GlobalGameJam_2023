@@ -64,6 +64,9 @@ public class GameApplication : MonoBehaviour
         _gameBoard.Initialize(_player, _npc, _discardCard, _principalObjectivesDeck);
         _handView = _handView.WithTurnService(_turnService);
         _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
+
+        TrophiesService.SomeoneWon.AddListener(gameView.WinGame);
+        
         InitialGameSetUp();
         AddHandCardsVisually();
         AddPrincipalObjectiveCardsVisually();
@@ -83,7 +86,6 @@ public class GameApplication : MonoBehaviour
                 var card = _drawCard.Execute(_player);
                 _handView.AddCard(card);
             }
-            
         }
     }
     
@@ -129,6 +131,7 @@ public class GameApplication : MonoBehaviour
     }
     private void CardEndDrag(OverlayCardView selectedCard, GenerationRow generationRow)
     {
+        _handView.Show();
         Debug.Log($"End card drag {selectedCard.name}");
         var card = cardsRepo.GetFromId(selectedCard.name);
         if (_playCard.Execute(card, _player, generationRow))
@@ -172,6 +175,7 @@ public class ClaimTrophy
     public void Execute()
     {
         var player = _getPlayerFromTurn.Execute();
+        TrophiesService.AddTrophy(player);
         _gameBoard.AddPoint(player);
     }
 }

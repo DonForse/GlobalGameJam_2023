@@ -21,5 +21,7 @@ public class DeckObjectiveStrategy : IPlayCardStrategy
     {
         _gameBoard.CompleteObjectiveCard((ObjectiveCard)card, player);
         _gameBoard.AddPoint(player);
+        TrophiesService.AddTrophy(player);
+        _gameBoard.AddPoint(player);
     }
 }
