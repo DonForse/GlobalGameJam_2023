@@ -2,13 +2,13 @@ using System;
 using Actions;
 using Cards.Drag;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameApplication : MonoBehaviour
 {
     [SerializeField] private CardRepositoryScriptableObject cardsRepo;
     [SerializeField] private HandView _handView;
     [SerializeField] private GameView gameView;
+    [SerializeField] private ShieldView shieldView;
     private AddDiscardPileToDeck _addDiscardPileToDeck;
     private DrawCard _drawCard;
     private ShuffleDeck _shuffleDeck;
@@ -20,8 +20,6 @@ public class GameApplication : MonoBehaviour
     private Player _npc;
     private DiscardCard _discardCard;
     private HasShield _hasShield;
-    private ShowPromptToUseShield _showPromptToUseShield;
-    private ShieldView _shieldView;
     private TurnService _turnService;
     private BotService _botService;
 
@@ -47,7 +45,7 @@ public class GameApplication : MonoBehaviour
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
         _hasShield = new HasShield();
-        _showPromptToUseShield = new ShowPromptToUseShield();
+        new ShowPromptToUseShield();
         _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
         _turnService = new TurnService(gameView, _playCard);
         _botService = new BotService(_turnService);
@@ -84,7 +82,7 @@ public class GameApplication : MonoBehaviour
     private void OnShield(Action<bool> callBack)
     {
         if (_hasShield.Execute(_player.PlayerHand))
-            _shieldView.OnShieldCalled(_playCard, _player, _gameBoard, callBack);
+            shieldView.OnShieldCalled(_playCard, _player, callBack);
         else
             callBack(false);
     }
@@ -100,26 +98,6 @@ public class GameApplication : MonoBehaviour
         Debug.Log($"End card drag {selectedCard.name}");
         var card = cardsRepo.GetFromId(selectedCard.name);
         _playCard.Execute(card, _player, generationRow);
-    }
-}
-
-public class ShieldView : MonoBehaviour
-{
-    [SerializeField] private Button yesButton;
-    [SerializeField] private Button noButton;
-    
-    public void OnShieldCalled(PlayCard playCard, Player player, GameBoard gameBoard, Action<bool> callBack)
-    {
-        yesButton.onClick.AddListener(() =>
-        {
-            callBack(true);
-            yesButton.onClick.RemoveAllListeners();
-        });
-        noButton.onClick.AddListener(() =>
-        {
-            callBack(false);
-            yesButton.onClick.RemoveAllListeners();
-        });
     }
 }
 

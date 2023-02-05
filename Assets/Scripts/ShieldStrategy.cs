@@ -1,13 +1,14 @@
-﻿using Cards;
+﻿using Actions;
+using Cards;
 using UnityEngine;
 
 public class ShieldStrategy : IPlayCardStrategy
 {
-    private readonly GameBoard _gameBoard;
+    private readonly DiscardCard _discardCard;
 
-    public ShieldStrategy(GameBoard gameBoard)
+    public ShieldStrategy(DiscardCard discardCard)
     {
-        _gameBoard = gameBoard;
+        _discardCard = discardCard;
     }
 
     public bool Is(Card card) => card.GetType() == typeof(ShieldCard);
@@ -20,5 +21,7 @@ public class ShieldStrategy : IPlayCardStrategy
 
     public void Execute(Card card, Player player, GenerationRow row)
     {
+        _discardCard.Execute(card);
+        Debug.Log("shield card completed");
     }
 }

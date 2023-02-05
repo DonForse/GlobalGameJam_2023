@@ -16,7 +16,8 @@ public class PlayCard
         _playCardStrategies = new List<IPlayCardStrategy>
         {
             new FamilyMemberStrategy(gameBoard),
-            new SabotageStrategy(gameBoard, discardCard, isShieldUsed)
+            new SabotageStrategy(gameBoard, discardCard, isShieldUsed),
+            new ShieldStrategy(discardCard)
         };
     }
 
