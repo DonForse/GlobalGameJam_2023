@@ -5,7 +5,7 @@ namespace Actions
 {
     public class LookAroundBehaviour : MonoBehaviour
     {
-        public Transform CameraTransform;
+        public Camera Camera;
         private Quaternion originalRotation;
         [Range(0f, 1f)] public float LerpT = 0.01f;
         
@@ -15,13 +15,14 @@ namespace Actions
 
         private void Awake()
         {
-            originalRotation = CameraTransform.rotation;
+            originalRotation = transform.localRotation;
         }
 
         private void FixedUpdate()
         {
             if (Input.GetKey(KeyCode.X))
             {
+                Camera.enabled = true;
                 float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
                 float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -33,7 +34,8 @@ namespace Actions
             }
             else
             {
-                CameraTransform.rotation = Quaternion.Lerp(CameraTransform.rotation, originalRotation, LerpT);
+                Camera.enabled = false;
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, originalRotation, LerpT);
 
             }
 
