@@ -7,10 +7,12 @@ public class BoardView : MonoBehaviour
     
     public void AddTrophy()
     {
+        SfxManager.AddTrophy();
     }
 
     public void AddCard(Player player, Card card, GenerationRow row)
     {
+        SfxManager.AddCard();
         if (!player.IsOpponent)
             playerSide.AddCard(card, row);
         else

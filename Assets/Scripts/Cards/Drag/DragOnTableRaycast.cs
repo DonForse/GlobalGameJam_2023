@@ -35,28 +35,28 @@ namespace Cards.Drag
                 ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 var hits = Physics.RaycastAll((Ray) ray);
 
-                var slot = hits.Select(it => it.collider.GetComponent<SnappeableSlot>())
+                var row = hits.Select(it => it.collider.GetComponent<GenerationRowDragTarget>())
                     .FirstOrDefault(it => it != null);
-                if (slot == null)
+                if (row == null)
                 {
                     if(Input.GetMouseButtonUp(0))
                         stopDragging(GenerationRow.Board);
                     continue;
                 }
                 
-                OnOveringSlot(cardData, stopDragging, slot);
+                OnOveringSlot(cardData, stopDragging, row);
 
             }
 
             ray = null;
         }
 
-        private static void OnOveringSlot(Card cardData, Action<GenerationRow> stopDragging, SnappeableSlot slot)
+        private static void OnOveringSlot(Card cardData, Action<GenerationRow> stopDragging, GenerationRowDragTarget row)
         {
-            slot.OnOvering();
+            row.OnHovering();
 
             if (Input.GetMouseButtonUp(0)) 
-                stopDragging(slot.Generation);
+                stopDragging(row.Generation);
         }
     }
 }

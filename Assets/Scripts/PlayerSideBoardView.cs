@@ -16,13 +16,13 @@ public class PlayerSideBoardView : MonoBehaviour
         slot.ShowCard(card);
     }
 
-    private SnappeableSlot GetFreeSlot(GenerationRow generationRow) =>
+    private CardViewSprite GetFreeSlot(GenerationRow generationRow) =>
         GetSnappeableSlots(generationRow)
             .First(it => it.IsFree);
 
-    private IEnumerable<SnappeableSlot> GetSnappeableSlots(GenerationRow generationRow) =>
+    private IEnumerable<CardViewSprite> GetSnappeableSlots(GenerationRow generationRow) =>
         GetSlotsFor(generationRow)
-            .Select(it => it.GetComponentInChildren<SnappeableSlot>());
+            .Select(it => it.GetComponentInChildren<CardViewSprite>());
 
     private List<GameObject> GetSlotsFor(GenerationRow generationRow)
     {

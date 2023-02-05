@@ -43,26 +43,45 @@ public class GameApplication : MonoBehaviour
         
         _deck = new Deck(cardsRepo);
         _deck.Initialize();
-
-        _gameBoard = new GameBoard();
-        _discardCard = new DiscardCard(_discardPile);
         _discardPile = new DiscardPile();
+        _gameBoard = new GameBoard();
+
+        _discardCard = new DiscardCard(_discardPile);
         _shuffleDeck = new ShuffleDeck(_deck);
-        _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
+        _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
         _hasShield = new HasShield();
         _playCard = new PlayCard(_gameBoard, _discardCard, OnShield);
         _turnService = new TurnService(gameView, _playCard);
         _botService = _botService.With(_turnService, _playCard, _npc);
-        _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
-        _handView = _handView.WithTurnService(_turnService);
 
         _gameBoard.Initialize(_player, _npc, _discardCard);
+        _handView = _handView.WithTurnService(_turnService);
+        _handView = _handView.WithOnCardSelected(CardStartDrag, _ => { });
+        
         InitialGameSetUp();
         AddHandCardsVisually();
         AddPrincipalObjectiveCardsVisually();
         _turnService.StartTurn(PlayerEnum.Player);
+        _turnService.OnTurnChange.AddListener(DrawNewCards);
     }
+
+    private void DrawNewCards(PlayerEnum playerEnum)
+    {
+        if (playerEnum == PlayerEnum.Npc){
+            while (_npc.PlayerHand.Cards.Count < 5) _drawCard.Execute(_npc);
+        }
+        else
+        {
+            while (_player.PlayerHand.Cards.Count < 5)
+            {
+                var card = _drawCard.Execute(_player);
+                _handView.AddCard(card);
+            }
+            
+        }
+    }
+    
 
     private void AddPrincipalObjectiveCardsVisually()
     {
@@ -109,7 +128,8 @@ public class GameApplication : MonoBehaviour
     {
         Debug.Log($"End card drag {selectedCard.name}");
         var card = cardsRepo.GetFromId(selectedCard.name);
-        _playCard.Execute(card, _player, generationRow);
+        if (_playCard.Execute(card, _player, generationRow))
+            _handView.RemoveCard(card);
     }
 }
 
