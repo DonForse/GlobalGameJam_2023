@@ -1,6 +1,11 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Actions;
 using Cards.Drag;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameApplication : MonoBehaviour
 {
@@ -17,6 +22,9 @@ public class GameApplication : MonoBehaviour
     private Player _player;
     private Player _npc;
     private DiscardCard _discardCard;
+    private HasShield _hasShield;
+    private ShowPromptToUseShield _showPromptToUseShield;
+    private ShieldView _shieldView;
 
     void Start()
     {
@@ -37,7 +45,9 @@ public class GameApplication : MonoBehaviour
         _discardCard = new DiscardCard(_discardPile);
         _addDiscardPileToDeck = new AddDiscardPileToDeck(_discardPile, _deck, _shuffleDeck);
         _drawCard = new DrawCard(_deck,_addDiscardPileToDeck);
-        _playCard = new PlayCard(_gameBoard, _handView, _discardCard);
+        _hasShield = new HasShield();
+        _showPromptToUseShield = new ShowPromptToUseShield();
+        _playCard = new PlayCard(_gameBoard, _handView, _discardCard, OnShield);
         
         _shuffleDeck.Execute();
         _drawCard.Execute(_playerHand);
@@ -47,6 +57,14 @@ public class GameApplication : MonoBehaviour
 
         foreach (var card in _playerHand.Cards)
             _handView.AddCard(card);
+    }
+
+    private void OnShield(Action<bool> callBack)
+    {
+        if (_hasShield.Execute(_playerHand))
+            _shieldView.OnShieldCalled(_playCard, _player, _gameBoard, callBack);
+        else
+            callBack(false);
     }
 
     private void CardStartDrag(OverlayCardView selectedCard)
@@ -62,4 +80,30 @@ public class GameApplication : MonoBehaviour
         //Blas Aca nos da la posicion.
         _playCard.Execute(card, _player, _playerHand, GenerationRow.Parent);
     }
+}
+
+public class ShieldView : MonoBehaviour
+{
+    [SerializeField] private Button yesButton;
+    [SerializeField] private Button noButton;
+    
+    public void OnShieldCalled(PlayCard playCard, Player player, GameBoard gameBoard, Action<bool> callBack)
+    {
+        yesButton.onClick.AddListener(() =>
+        {
+            callBack(true);
+            yesButton.onClick.RemoveAllListeners();
+        });
+        noButton.onClick.AddListener(() =>
+        {
+            callBack(false);
+            yesButton.onClick.RemoveAllListeners();
+        });
+    }
+}
+
+public class HasShield
+{
+    public bool Execute(PlayerHand playerHand) => 
+        playerHand.Cards.Exists(x => x.GetType() == typeof(ShieldCard));
 }
