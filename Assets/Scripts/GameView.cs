@@ -39,6 +39,9 @@ public class GameView : MonoBehaviour
             var y = Random.Range(-0.5f, 0.5f);
             var z = Random.Range(-0.5f, 0.5f);
             spawned.transform.localPosition += new Vector3(x, y, z);
+            spawned.transform.localRotation = new Quaternion(Random.Range(0, 150), Random.Range(0, 150),
+                Random.Range(0, 150), Random.Range(0, 150));
+
             spawned.SetSprite(Sprites[Random.Range(0,length)]);
             yield return new WaitForEndOfFrame();
         }

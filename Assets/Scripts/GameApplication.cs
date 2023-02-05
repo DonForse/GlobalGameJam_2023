@@ -80,7 +80,6 @@ public class GameApplication : MonoBehaviour
                 var card = _drawCard.Execute(_player);
                 _handView.AddCard(card);
             }
-            
         }
     }
     
@@ -128,6 +127,7 @@ public class GameApplication : MonoBehaviour
     }
     private void CardEndDrag(OverlayCardView selectedCard, GenerationRow generationRow)
     {
+        _handView.Show();
         Debug.Log($"End card drag {selectedCard.name}");
         var card = cardsRepo.GetFromId(selectedCard.name);
         if (_playCard.Execute(card, _player, generationRow))

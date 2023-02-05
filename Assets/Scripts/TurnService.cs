@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
 public class TurnService
 {
@@ -9,6 +7,7 @@ public class TurnService
     private int turn = 0;
     private PlayerEnum playerTurn = PlayerEnum.Player;
     private int _cardsPlayed = 0;
+    private bool process = true;
 
     public TurnService(GameView gameView, PlayCard playCard)
     {
@@ -16,11 +15,18 @@ public class TurnService
         _playCard = playCard;
 
         _playCard.OnCardPlayed.AddListener(AddCardPlayed);
+        TrophiesService.SomeoneWon.AddListener(Stop);
+    }
+
+    private void Stop(PlayerEnum arg0)
+    {
+        process = false;
     }
 
     public UnityEvent<PlayerEnum> OnTurnChange = new UnityEvent<PlayerEnum>();
     private void AddCardPlayed()
     {
+        if (!process) return;
         _cardsPlayed++;
         if (_cardsPlayed >= 2)
         {
@@ -30,7 +36,8 @@ public class TurnService
 
     private void ChangeTurn()
     {
-        Debug.Log("change turn");
+        
+        if (!process) return;
         var newPlayer = playerTurn == PlayerEnum.Player ? PlayerEnum.Npc : PlayerEnum.Player;
         playerTurn = newPlayer;
         StartTurn(newPlayer);

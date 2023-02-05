@@ -29,7 +29,7 @@ public class BotService : MonoBehaviour
 
     private IEnumerator Play()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
         int cardPlayedCount = 0;
 
         foreach (var card in _botPlayer.PlayerHand.Cards.ToList())
